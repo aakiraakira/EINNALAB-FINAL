@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EiNNALAB Mobile Formula</title>
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Brand Palette */
+            --bg-color: #fffbfb; /* Slightly warmer bg to match reference */
+            --card-bg: #ffffff;
+            --brand-red: #7b021d;
+            --brand-red-light: #c9184a;
+            --text-dark: #212529;
+            --text-muted: #6c757d;
+            --font-heading: 'Poppins', sans-serif;
+            --font-body: 'Satoshi', sans-serif;
+            
+            /* Spacing & Shadow */
+            --shadow-card: 0 10px 30px rgba(0,0,0,0.08);
+            --radius-card: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- 1. HERO SECTION --- */
+        .hero-section {
+            padding: 40px 20px 20px 20px;
+            text-align: center;
+        }
+
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            line-height: 1.2;
+            color: var(--brand-red);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .hero-headline span {
+            font-weight: 700;
+            font-style: italic;
+            display: block; /* Force new line for emphasis */
+            font-size: 2.4rem;
+        }
+
+        .hero-image-container {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 30px auto;
+            position: relative;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 20px rgba(123, 2, 29, 0.15));
+        }
+
+        .hero-subhead {
+            font-family: var(--font-heading);
+            color: var(--brand-red);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .hero-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            max-width: 500px; /* Readability cap */
+            margin: 0 auto;
+        }
+
+        /* --- 2. INGREDIENT SCROLLER --- */
+        .scroll-container {
+            margin-top: 40px;
+            padding-bottom: 60px; /* Space for shadow */
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            gap: 20px;
+            padding-left: 20px; /* Left padding for first item */
+            padding-right: 20px;
+            
+            /* Hide scrollbar */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE */
+            
+            /* Snap effect */
+            scroll-snap-type: x mandatory;
+        }
+        
+        .scroll-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        /* --- 3. FLIP CARD STYLES --- */
+        .card-scene {
+            width: 280px;
+            height: 380px;
+            flex-shrink: 0;
+            perspective: 1000px; /* Essential for 3D flip */
+            scroll-snap-align: center;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: var(--radius-card);
+            box-shadow: var(--shadow-card);
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Face Common Styles */
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hides back when facing away */
+            border-radius: var(--radius-card);
+            background: var(--card-bg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- FRONT FACE --- */
+        .card-face.front {
+            /* Styles for front */
+        }
+
+        .card-image-area {
+            height: 60%;
+            width: 100%;
+            position: relative;
+            background-color: #f8f0f2; /* Fallback color */
+        }
+
+        .card-image-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-text-area {
+            height: 40%;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            white-space: normal; /* Allow text wrapping inside flex item */
+        }
+
+        .card-title {
+            color: var(--brand-red);
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* The Plus Button */
+        .flip-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(123, 2, 29, 0.1);
+            backdrop-filter: blur(4px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--brand-red);
+            font-size: 20px;
+            line-height: 1;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        
+        /* --- BACK FACE --- */
+        .card-face.back {
+            transform: rotateY(180deg);
+            background: white; /* Or brand color if preferred */
+            padding: 30px;
+            box-sizing: border-box;
+            text-align: center;
+            justify-content: center;
+            border: 1px solid var(--brand-red);
+        }
+
+        .back-content h3 {
+            font-family: var(--font-heading);
+            color: var(--brand-red);
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .back-content p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            white-space: normal; /* Ensure text wraps */
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-family: var(--font-heading);
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="hero-section">
+        <h1 class="hero-headline">
+            REPLACE YOUR DAILY SUPPLEMENTS WITH <span>ONE FORMULA</span>
+        </h1>
+
+        <div class="hero-image-container">
+            <img class="hero-image" 
+                 src="https://einnalab.com/wp-content/uploads/2025/07/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Ingredient-Image-Transparent-scaled.png" 
+                 alt="EiNNALAB Formula Bottle">
+        </div>
+
+        <div class="hero-subhead">
+            Save Money, Time And Simplify Your Routine.
+        </div>
+        
+        <p class="hero-description">
+            The average health-conscious consumer spends hundreds of dollars monthly on multiple supplements. EiNNALAB consolidates 13 premium ingredients into one comprehensive formula, saving you money, time, and the hassle of managing multiple products.
+        </p>
+    </section>
+
+    <section class="scroll-container">
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/Marine-Collagen-Extract.png" alt="Marine Collagen">
+                        <button class="flip-btn" aria-label="More Info">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">NZ Marine Collagen</h3>
+                        <div class="card-subtitle">Premium source for skin elasticity and hydration.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>NZ Marine Collagen</h3>
+                        <p>A key component for <b>skin elasticity and hydration</b>. Sourced from New Zealand for premium purity and absorption.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/07/EiNNALAB-Deer-Placenta-30000mg-DarkRed-TRANSPARENT-Front-scaled-e1751113638955.png" alt="Deer Placenta" style="object-fit: contain; padding: 10px; box-sizing: border-box;">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Deer Placenta Extract</h3>
+                        <div class="card-subtitle">30,000MG equivalent of cellular rejuvenation power.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Deer Placenta</h3>
+                        <p>Our core ingredient. Rich in growth factors and nutrients to support <b>cellular repair</b> and anti-aging.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/Grape-Seed.png" alt="Grape Seed">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Grape Seed Extract</h3>
+                        <div class="card-subtitle">Concentrated antioxidants for circulation support.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Grape Seed Extract</h3>
+                        <p>A concentrated source of antioxidants that help protect against <b>oxidative stress</b> and support healthy circulation.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/Tumeric.png" alt="Turmeric">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Turmeric Root</h3>
+                        <div class="card-subtitle">Ancient spice for joint support and immunity.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Turmeric Root Extract</h3>
+                        <p>A revered ancient spice known for its powerful antioxidant properties and <b>joint-supporting</b> benefits.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/Aloe-Vera-scaled.png" alt="Aloe Vera">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Aloe Vera Extract</h3>
+                        <div class="card-subtitle">Soothing support for digestion and skin vitality.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Aloe Vera Extract</h3>
+                        <p>Celebrated for its soothing properties and its role in supporting <b>digestive health</b> and skin vitality.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/Avocado-Oil.png" alt="Avocado Oil">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Avocado Oil</h3>
+                        <div class="card-subtitle">Rich in healthy fats for heart and skin health.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Avocado Oil</h3>
+                        <p>Rich in healthy fats and nutrients, <b>Avocado Oil</b> supports cardiovascular health and skin nourishment.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/11/lycopene.png" alt="Lycopene">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Lycopene</h3>
+                        <div class="card-subtitle">Potent natural pigment for cellular protection.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Lycopene</h3>
+                        <p>This natural pigment, found in red fruits, is a potent antioxidant that aids in <b>cellular protection</b>.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-scene">
+            <div class="card">
+                <div class="card-face front">
+                    <div class="card-image-area">
+                        <img src="https://einnalab.com/wp-content/uploads/2025/07/EiNNALAB-Deer-Placenta-30000mg-DarkRed-TRANSPARENT-Front-scaled-e1751113638955.png" alt="Vitamin E" style="object-fit:contain; padding:10px;">
+                        <button class="flip-btn">+</button>
+                    </div>
+                    <div class="card-text-area">
+                        <h3 class="card-title">Vitamin E</h3>
+                        <div class="card-subtitle">Essential antioxidant for vibrant skin.</div>
+                    </div>
+                </div>
+                <div class="card-face back">
+                    <div class="back-content">
+                        <h3>Vitamin E</h3>
+                        <p>A powerful antioxidant that supports the immune system and contributes to <b>healthy, vibrant skin</b>.</p>
+                        <button class="close-btn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Select all buttons that trigger the flip
+            const flipButtons = document.querySelectorAll('.flip-btn');
+            const closeButtons = document.querySelectorAll('.close-btn');
+
+            // Function to flip the card
+            flipButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent bubbling issues
+                    const card = btn.closest('.card');
+                    card.classList.add('is-flipped');
+                });
+            });
+
+            // Function to close (unflip) the card
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = btn.closest('.card');
+                    card.classList.remove('is-flipped');
+                });
+            });
+
+            // Optional: Click the card body (back side) to close it as well
+            const backFaces = document.querySelectorAll('.card-face.back');
+            backFaces.forEach(face => {
+                face.addEventListener('click', () => {
+                    const card = face.closest('.card');
+                    card.classList.remove('is-flipped');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
