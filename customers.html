@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Deer Placenta Marquee 3D Carousel</title>
+    
+    <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* * SCOPED STYLES for WordPress Compatibility */
+        #deer-placenta-widget-root {
+            /* FONT: Poppins Default */
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 300 !important;
+            /* BACKGROUND: Ivory Cream */
+            background-color: #fcfdfb !important;
+            color: #28282b !important; /* Matte Black */
+            padding: 60px 0 100px 0 !important;
+            text-align: center !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
+            width: 100% !important;
+            position: relative !important;
+            user-select: none !important;
+            -webkit-user-select: none !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Content Wrapper */
+        #deer-placenta-widget-root .content-wrapper {
+            position: relative !important;
+            z-index: 2 !important;
+        }
+
+        /* Typography */
+        #deer-placenta-widget-root h2 {
+            /* FONT: Satoshi */
+            font-family: 'Satoshi', sans-serif !important;
+            font-size: 36px !important;
+            font-weight: 700 !important;
+            margin: 0 0 10px 0 !important;
+            letter-spacing: -0.02em !important;
+            color: #28282b !important;
+        }
+
+        #deer-placenta-widget-root p {
+            font-size: 16px !important;
+            color: #28282b !important;
+            opacity: 0.7;
+            margin: 0 auto 40px auto !important;
+            max-width: 500px !important;
+            line-height: 1.6 !important;
+            padding: 0 20px !important;
+        }
+
+        /* 3D Scene */
+        #deer-placenta-widget-root .carousel-scene {
+            position: relative !important;
+            width: 100% !important;
+            height: 420px !important;
+            margin: 0 auto !important;
+            perspective: 1200px !important;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            cursor: grab !important;
+            touch-action: pan-y !important;
+            transform: translateZ(0);
+        }
+        
+        #deer-placenta-widget-root .carousel-scene:active {
+            cursor: grabbing !important;
+        }
+
+        #deer-placenta-widget-root .carousel-track {
+            position: relative !important;
+            width: 100% !important;
+            height: 100% !important;
+            transform-style: preserve-3d !important;
+        }
+
+        /* CARD STYLES */
+        #deer-placenta-widget-root .carousel-card {
+            position: absolute !important;
+            left: 50% !important;
+            top: 50% !important;
+            background-color: #fff !important;
+            border-radius: 20px !important;
+            will-change: transform, opacity !important;
+            backface-visibility: hidden !important; 
+            /* Subtle Elegant Shadow */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.8) !important;
+            /* Reflection */
+            -webkit-box-reflect: below 2px linear-gradient(transparent 85%, rgba(0,0,0,0.1)) !important;
+            overflow: hidden !important;
+            /* Border for Definition */
+            border: 1px solid rgba(123, 2, 29, 0.05) !important;
+            transition: z-index 0s !important; /* Remove z-index transition to prevent flickering */
+        }
+
+        /* The Image inside the card */
+        #deer-placenta-widget-root .card-bg-img {
+            position: absolute !important;
+            top: 0 !important; 
+            left: 0 !important;
+            width: 100% !important; 
+            height: 100% !important;
+            object-fit: cover !important;
+            z-index: 1 !important;
+            pointer-events: none !important;
+            border-radius: 20px !important;
+            background-color: #e3dede;
+        }
+
+        /* Glass Shine */
+        #deer-placenta-widget-root .carousel-card::before {
+            content: '' !important;
+            position: absolute !important;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.1) 100%) !important;
+            pointer-events: none !important;
+            z-index: 2 !important;
+        }
+
+        /* Darkness overlay for inactive items */
+        #deer-placenta-widget-root .carousel-card::after {
+            content: '' !important;
+            position: absolute !important;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(252, 253, 251, 0.6) !important; /* Ivory fade */
+            opacity: 0 !important;
+            transition: opacity 0.1s linear !important;
+            pointer-events: none !important;
+            z-index: 3 !important;
+        }
+
+        /* Card Content - Glassmorphism */
+        #deer-placenta-widget-root .card-content {
+            position: absolute !important;
+            bottom: 15px !important;
+            left: 15px !important;
+            right: 15px !important;
+            padding: 12px 16px !important;
+            /* Frosted Ivory Background */
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.9) !important;
+            border-radius: 12px !important;
+            color: #28282b !important;
+            text-align: left !important;
+            transform: translateY(10px) !important;
+            opacity: 0 !important;
+            transition: all 0.3s ease !important;
+            z-index: 4 !important;
+        }
+
+        #deer-placenta-widget-root .carousel-card.is-active .card-content {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+        
+        #deer-placenta-widget-root .carousel-card.is-active::after {
+            opacity: 0 !important;
+        }
+
+        #deer-placenta-widget-root .card-name {
+            font-family: 'Satoshi', sans-serif !important;
+            font-size: 15px !important;
+            font-weight: 700 !important;
+            margin-bottom: 2px !important;
+            color: #28282b !important;
+        }
+        
+        #deer-placenta-widget-root .card-role {
+            font-size: 11px !important;
+            /* Crimson Wine Accent */
+            color: #7b021d !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            font-weight: 600 !important;
+        }
+
+        /* Mobile specific adjustments */
+        @media (max-width: 768px) {
+            #deer-placenta-widget-root .carousel-scene {
+                height: 350px !important;
+                perspective: 800px !important;
+            }
+            #deer-placenta-widget-root h2 {
+                font-size: 28px !important;
+            }
+        }
+
+        /* Lightbox */
+        #deer-lightbox {
+            position: fixed !important;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(252, 253, 251, 0.95) !important; /* Ivory Overlay */
+            backdrop-filter: blur(5px);
+            z-index: 99999 !important;
+            display: none !important;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #deer-lightbox.active { display: flex !important; opacity: 1 !important; }
+        #deer-lightbox img {
+            max-width: 90% !important;
+            max-height: 80vh !important;
+            border-radius: 12px !important;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15) !important;
+        }
+        #deer-lightbox .close-btn {
+            position: absolute !important;
+            top: 20px; right: 20px;
+            font-size: 40px !important;
+            background: none !important;
+            border: none !important;
+            cursor: pointer !important;
+            color: #28282b !important;
+        }
+
+        .drag-hint {
+            margin-top: 20px !important;
+            font-family: 'Satoshi', sans-serif !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            color: #7b021d !important; /* Crimson Wine */
+            letter-spacing: 1.5px !important;
+            text-transform: uppercase !important;
+            opacity: 0.8 !important;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="deer-placenta-widget-root">
+        <div class="content-wrapper">
+            <h2>Real Results</h2>
+            <p>Discover the transformative journeys of our community.</p>
+
+            <div class="carousel-scene" id="sceneContainer">
+                <div class="carousel-track" id="carouselTrack"></div>
+            </div>
+            
+            <div class="drag-hint">Hover to Pause • Drag to Spin</div>
+        </div>
+    </div>
+
+    <div id="deer-lightbox">
+        <button class="close-btn">&times;</button>
+        <img src="" alt="Preview" id="lightbox-img">
+    </div>
+
+    <script>
+        (function() {
+            // == CONFIG & STATE ==
+            const images = [
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/74.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/73.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/72.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/71.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/70.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/69.jpg', name: 'Success Story', role: 'Transformation' },
+                { url: 'https://einnalab.com/wp-content/uploads/2021/08/68.jpg', name: 'Success Story', role: 'Transformation' }
+            ];
+
+            // Infinite Scroll State
+            let currentScroll = 0; 
+            let targetScroll = 0;
+            let isDragging = false;
+            let isHovering = false;
+            let startX = 0;
+            let startScroll = 0;
+            let velocity = 0;
+            let animationFrame;
+            
+            // Marquee Settings
+            const AUTO_SPEED = 0.15; // Speed of auto-rotation
+            
+            // Dimensions
+            let CARD_WIDTH = 260;
+            let CARD_HEIGHT = 340;
+            let GAP_ANGLE = 0; 
+            let RADIUS = 400;  
+
+            // DOM
+            const track = document.getElementById('carouselTrack');
+            const scene = document.getElementById('sceneContainer');
+            const lightbox = document.getElementById('deer-lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.close-btn');
+
+            // Pool of DOM elements
+            const VISIBLE_ITEMS = 12; 
+            const cardPool = [];
+
+            function init() {
+                updateDimensions();
+                
+                // Create DOM Elements ONCE (Optimized)
+                const fragment = document.createDocumentFragment();
+
+                for (let i = 0; i < VISIBLE_ITEMS; i++) {
+                    const card = document.createElement('div');
+                    card.className = 'carousel-card';
+                    
+                    const img = document.createElement('img');
+                    img.className = 'card-bg-img';
+                    img.alt = '';
+                    
+                    const content = document.createElement('div');
+                    content.className = 'card-content';
+                    
+                    const name = document.createElement('div');
+                    name.className = 'card-name';
+                    
+                    const role = document.createElement('div');
+                    role.className = 'card-role';
+                    
+                    content.appendChild(name);
+                    content.appendChild(role);
+                    card.appendChild(img);
+                    card.appendChild(content);
+
+                    // Store references
+                    card.refs = { img, name, role };
+                    
+                    // Event listener wrapper
+                    card.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Prevent drag flicker
+                        handleCardClick(card, i);
+                    });
+                    
+                    fragment.appendChild(card);
+                    cardPool.push(card);
+                }
+                track.appendChild(fragment);
+
+                currentScroll = 0; 
+                targetScroll = 0;
+                
+                updateDimensions();
+                render();
+                
+                window.addEventListener('resize', () => {
+                    updateDimensions();
+                });
+            }
+
+            function updateDimensions() {
+                const isMobile = window.innerWidth < 768;
+                
+                if (isMobile) {
+                    CARD_WIDTH = 200;
+                    CARD_HEIGHT = 280;
+                    RADIUS = 260; 
+                    GAP_ANGLE = 55; 
+                } else {
+                    CARD_WIDTH = 280;
+                    CARD_HEIGHT = 360;
+                    RADIUS = 550; 
+                    GAP_ANGLE = 40; 
+                }
+
+                cardPool.forEach(card => {
+                    card.style.width = `${CARD_WIDTH}px`;
+                    card.style.height = `${CARD_HEIGHT}px`;
+                    card.style.marginLeft = `-${CARD_WIDTH/2}px`;
+                    card.style.marginTop = `-${CARD_HEIGHT/2}px`;
+                });
+            }
+
+            function render() {
+                // Physics & Marquee Logic
+                if (!isDragging) {
+                    // Apply Inertia
+                    velocity *= 0.95;
+                    currentScroll += velocity;
+                    
+                    // Marquee Auto-Rotation
+                    if (!isHovering && Math.abs(velocity) < 0.1) {
+                        // === CHANGED TO PLUS TO REVERSE DIRECTION ===
+                         currentScroll += AUTO_SPEED; 
+                    }
+
+                    // Soft Snapping (only if hovering)
+                    if (isHovering && Math.abs(velocity) < 0.1) {
+                        const snapTarget = Math.round(currentScroll / GAP_ANGLE) * GAP_ANGLE;
+                        currentScroll += (snapTarget - currentScroll) * 0.1;
+                    }
+                } else {
+                    // Dragging control
+                    currentScroll += (targetScroll - currentScroll) * 0.2;
+                }
+
+                const centerAngle = currentScroll; 
+                
+                cardPool.forEach((card, i) => {
+                    // Virtual Logic
+                    const offsetIndex = i - Math.floor(VISIBLE_ITEMS / 2);
+                    const baseIndex = Math.round(centerAngle / GAP_ANGLE);
+                    const itemIndex = baseIndex + offsetIndex;
+                    
+                    const itemAngle = itemIndex * GAP_ANGLE;
+                    const angleDiff = itemAngle - centerAngle;
+
+                    // Infinite Modulo
+                    let dataIndex = itemIndex % images.length;
+                    if (dataIndex < 0) dataIndex += images.length;
+                    const data = images[dataIndex];
+
+                    // OPTIMIZATION: Only touch DOM if data changed
+                    if (card.dataset.index !== String(dataIndex)) {
+                        card.refs.img.src = data.url;
+                        card.refs.img.alt = data.name;
+                        card.refs.name.textContent = data.name;
+                        card.refs.role.textContent = data.role;
+                        card.dataset.index = dataIndex;
+                        card.dataset.url = data.url; 
+                    }
+
+                    // Store current angle for click handler
+                    card.dataset.angleDiff = angleDiff;
+                    card.dataset.itemAngle = itemAngle;
+
+                    // 3D Transform
+                    // Visibility culling
+                    if (Math.abs(angleDiff) > 100) {
+                        card.style.display = 'none'; 
+                    } else {
+                        if (card.style.display === 'none') card.style.display = 'block';
+
+                        const rad = angleDiff * (Math.PI / 180);
+                        const tx = Math.sin(rad) * RADIUS;
+                        const tz = (Math.cos(rad) * RADIUS) - RADIUS;
+                        const ry = angleDiff; 
+
+                        card.style.transform = `translate3d(${tx}px, 0, ${tz}px) rotateY(${ry}deg)`;
+                        
+                        // Opacity / Active State Logic
+                        const absAngle = Math.abs(angleDiff);
+                        
+                        if (absAngle < GAP_ANGLE / 2) {
+                            if (!card.classList.contains('is-active')) card.classList.add('is-active');
+                            card.style.zIndex = 100;
+                            card.style.opacity = 1;
+                        } else {
+                            if (card.classList.contains('is-active')) card.classList.remove('is-active');
+                            // Calculate Z-index based on distance from center
+                            card.style.zIndex = 100 - Math.floor(absAngle);
+                            card.style.opacity = 1 - (absAngle / 150); 
+                        }
+                    }
+                });
+
+                animationFrame = requestAnimationFrame(render);
+            }
+
+            // Click Handler Wrapper
+            function handleCardClick(card, index) {
+                const angleDiff = parseFloat(card.dataset.angleDiff);
+                const itemAngle = parseFloat(card.dataset.itemAngle);
+                
+                // If clicked item is near center, expand it
+                if (Math.abs(angleDiff) < 5) {
+                    openLightbox(card.dataset.url);
+                } else {
+                    // Otherwise, rotate it to center
+                    isDragging = true; 
+                    targetScroll = itemAngle;
+                    
+                    setTimeout(() => {
+                        isDragging = false;
+                        velocity = 0; 
+                    }, 500);
+                }
+            }
+
+            // == EVENTS ==
+            scene.addEventListener('mousedown', startDrag);
+            scene.addEventListener('touchstart', (e) => startDrag(e.touches[0]), {passive: false});
+
+            // Hover Events for Marquee Pause
+            scene.addEventListener('mouseenter', () => { isHovering = true; });
+            scene.addEventListener('mouseleave', () => { isHovering = false; });
+            scene.addEventListener('touchstart', () => { isHovering = true; }, {passive: true});
+            scene.addEventListener('touchend', () => { 
+                setTimeout(() => { isHovering = false; }, 1000); 
+            });
+
+            window.addEventListener('mousemove', onDrag);
+            window.addEventListener('touchmove', (e) => onDrag(e.touches[0]), {passive: false});
+
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('touchend', endDrag);
+
+            function startDrag(e) {
+                isDragging = true;
+                isHovering = true; 
+                startX = e.clientX;
+                startScroll = currentScroll;
+                velocity = 0;
+            }
+
+            function onDrag(e) {
+                if (!isDragging) return;
+                const deltaX = e.clientX - startX;
+                const sensitivity = 0.5; 
+                currentScroll = startScroll - (deltaX * sensitivity);
+                targetScroll = currentScroll; 
+            }
+
+            function endDrag(e) {
+                isDragging = false;
+            }
+
+            // == LIGHTBOX ==
+            function openLightbox(url) {
+                if (Math.abs(velocity) > 0.5) return; 
+                lightboxImg.src = url;
+                lightbox.style.display = 'flex';
+                requestAnimationFrame(() => {
+                    lightbox.classList.add('active');
+                });
+            }
+            
+            closeBtn.onclick = () => {
+                lightbox.classList.remove('active');
+                setTimeout(() => lightbox.style.display = 'none', 300);
+            };
+            
+            lightbox.onclick = (e) => {
+                if(e.target === lightbox) closeBtn.onclick();
+            };
+
+            // Init
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
+
+        })();
+    </script>
+</body>
+</html>
