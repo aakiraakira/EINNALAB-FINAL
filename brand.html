@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EINNALAB Brand Kit</title>
+
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* --- 1. DESIGN TOKENS (CSS Variables) --- */
+    :root {
+        /* Brand Colors */
+        --c-crimson: #7b021d;
+        --c-red-pink: #c9184a;
+        --c-cream: #fffbfb;
+        --c-white: #ffffff;
+        --c-charcoal: #212529;
+        --c-gray: #6c757d;
+
+        /* Typography */
+        --font-head: 'Poppins', sans-serif;
+        --font-body: 'Satoshi', sans-serif;
+
+        /* UI Properties */
+        --radius-ui: 20px;
+        --shadow-ui: 0 10px 30px rgba(123, 2, 29, 0.08);
+        --shadow-hover: 0 15px 40px rgba(123, 2, 29, 0.15);
+    }
+
+    /* --- 2. GLOBAL STYLES --- */
+    body {
+        margin: 0;
+        padding: 40px 20px;
+        background-color: var(--c-cream);
+        font-family: var(--font-body);
+        color: var(--c-charcoal);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-head);
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--c-gray);
+        margin-bottom: 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding-bottom: 10px;
+    }
+
+    /* --- 3. MAIN GRID LAYOUT --- */
+    .brand-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    @media (min-width: 900px) {
+        .brand-grid {
+            grid-template-columns: 1fr 1fr; /* 2-column layout */
+            grid-template-rows: auto auto;
+        }
+        /* Defining grid cell positions for a clean layout */
+        .grid-logo { grid-column: 1 / 2; grid-row: 1 / 2; }
+        .grid-colors { grid-column: 2 / 3; grid-row: 1 / 2; }
+        .grid-type { grid-column: 1 / 2; grid-row: 2 / 3; }
+        .grid-ui-mood { grid-column: 2 / 3; grid-row: 2 / 3; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    }
+
+    /* --- 4. COMPONENT STYLES --- */
+
+    /* Logo Section */
+    .logo-box {
+        background: var(--c-cream);
+        border: 1px solid rgba(0,0,0,0.05);
+        padding: 60px 40px;
+        text-align: center;
+    }
+    .brand-logo {
+        font-size: 4rem;
+        font-weight: 700;
+        color: var(--c-crimson);
+        letter-spacing: -1px;
+        line-height: 1;
+    }
+    .brand-tagline {
+        font-size: 1.2rem;
+        color: var(--c-crimson);
+        margin-top: 10px;
+    }
+
+    /* Color Palette Section */
+    .color-palette {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 25px;
+    }
+    .color-swatch {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .swatch-circle {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 15px;
+        box-shadow: var(--shadow-ui);
+        border: 1px solid rgba(0,0,0,0.05);
+    }
+    .color-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    .color-hex {
+        font-family: monospace;
+        color: var(--c-gray);
+        font-size: 0.85rem;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transition: background 0.2s;
+    }
+    .color-hex:hover { background: rgba(0,0,0,0.05); }
+    .color-hex::after {
+        content: 'Copied!';
+        position: absolute;
+        background: var(--c-charcoal);
+        color: white;
+        font-family: var(--font-body);
+        font-size: 0.7rem;
+        padding: 4px 8px;
+        border-radius: 4px;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+    }
+    .color-hex.copied::after { opacity: 1; }
+
+
+    /* Typography Section */
+    .type-group { margin-bottom: 30px; }
+    .font-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--c-gray);
+        margin-bottom: 10px;
+        display: block;
+    }
+    .type-example h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        line-height: 1.1;
+    }
+    .type-example h2 {
+        font-size: 1.8rem;
+        font-weight: 300; /* Light weight */
+        letter-spacing: 1px;
+    }
+    .type-body-example {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    .type-body-example strong { font-weight: 700; color: var(--c-crimson); }
+
+
+    /* UI Elements Section */
+    .ui-box {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: flex-start;
+    }
+    .btn-primary {
+        display: inline-block;
+        background: var(--c-crimson);
+        color: var(--c-white);
+        font-family: var(--font-head);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 16px 32px;
+        border-radius: 50px; /* Pill shape */
+        text-decoration: none;
+        box-shadow: var(--shadow-ui);
+        transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+        background: var(--c-red-pink);
+        box-shadow: var(--shadow-hover);
+        transform: translateY(-2px);
+    }
+    .ui-card {
+        width: 180px;
+        height: 180px;
+        background: var(--c-white);
+        border-radius: var(--radius-ui);
+        box-shadow: var(--shadow-ui);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        font-family: var(--font-body);
+        color: var(--c-gray);
+    }
+
+
+    /* Mood Board Section */
+    .mood-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    .mood-img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        border-radius: var(--radius-ui);
+    }
+    .mood-img.tall {
+        grid-row: span 2;
+        height: 335px; /* 160*2 + 15 gap */
+    }
+    /* Using placeholder images that match the theme */
+    .img-silk { background: url('https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1000&auto=format&fit=crop') center/cover; }
+    .img-cream { background: url('https://images.unsplash.com/photo-1612817288484-6f911633303e?q=80&w=1000&auto=format&fit=crop') center/cover; }
+    .img-gradient { background: linear-gradient(135deg, var(--c-crimson), var(--c-red-pink)); }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    
+    <div class="brand-grid">
+
+        <section class="grid-logo">
+            <h3 class="section-title">Logo</h3>
+            <div class="logo-box">
+                <div class="brand-logo">EINNALAB</div>
+                <div class="brand-tagline">Liquid Luxury Supplement</div>
+            </div>
+        </section>
+
+        <section class="grid-colors">
+            <h3 class="section-title">Color Palette</h3>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-crimson);"></div>
+                    <span class="color-name">Deep Crimson</span>
+                    <code class="color-hex" onclick="copyHex(this)">#7b021d</code>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-red-pink);"></div>
+                    <span class="color-name">Vibrant Red-Pink</span>
+                    <code class="color-hex" onclick="copyHex(this)">#c9184a</code>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-cream); border: 1px solid #eee;"></div>
+                    <span class="color-name">Cosmetic Cream</span>
+                    <code class="color-hex" onclick="copyHex(this)">#fffbfb</code>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-white); border: 1px solid #eee;"></div>
+                    <span class="color-name">Pure White</span>
+                    <code class="color-hex" onclick="copyHex(this)">#ffffff</code>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-charcoal);"></div>
+                    <span class="color-name">Charcoal Black</span>
+                    <code class="color-hex" onclick="copyHex(this)">#212529</code>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background: var(--c-gray);"></div>
+                    <span class="color-name">Warm Gray</span>
+                    <code class="color-hex" onclick="copyHex(this)">#6c757d</code>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid-type">
+            <h3 class="section-title">Typography</h3>
+            
+            <div class="type-group">
+                <span class="font-label">PRIMARY FONT: Poppins (Headings)</span>
+                <div class="type-example">
+                    <h1>HEADING 1<br>BOLD, UPPERCASE</h1>
+                    <h2 style="margin-top: 20px;">Heading 2<br>Light, Uppercase</h2>
+                </div>
+            </div>
+            
+            <div class="type-group">
+                <span class="font-label">SECONDARY FONT: Satoshi (Body)</span>
+                <div class="type-body-example">
+                    <p>Lorem ipsum dolor sit amet, <strong>consectetur adipiscing elit</strong>, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <strong>Excepteur sint occaecat cupidatat</strong> non proident.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid-ui-mood">
+            
+            <section>
+                <h3 class="section-title">UI Elements</h3>
+                <div class="ui-box">
+                    <a href="#" class="btn-primary">Shop Now</a>
+                    
+                    <div class="ui-card">
+                        <div>
+                            <strong>Card Component</strong><br>
+                            <span style="font-size: 0.85rem;">20px radius<br>Soft Shadow</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3 class="section-title">Mood Board</h3>
+                <div class="mood-grid">
+                    <div class="mood-img tall img-silk"></div>
+                    <div class="mood-img img-cream"></div>
+                    <div class="mood-img img-gradient"></div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Simple function to copy hex codes to clipboard
+    function copyHex(element) {
+        const hexCode = element.innerText;
+        navigator.clipboard.writeText(hexCode).then(() => {
+            // Show feedback
+            element.classList.add('copied');
+            setTimeout(() => {
+                element.classList.remove('copied');
+            }, 1500);
+        });
+    }
+</script>
+
+</body>
+</html>
