@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Deer Placenta Animation - Dark Liquid Glass</title>
+  
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- SCOPING ID FOR WORDPRESS --- */
+    #deer-placenta-section {
+      position: relative;
+      width: 100%;
+      /* BACKGROUND: Lake Tekapo Image */
+      /* background-image: url('https://coolbackgrounds.imgix.net/72FI1uoNvyy66AU9lmkxD0/29545557828129fd31864cdd486457f4/white-radial-gradient.jpg?w=3840&q=60&auto=format,compress') !important; */
+      background-size: cover !important;
+      background-position: center !important;
+      background-attachment: fixed !important;
+      
+      color: #ffffff !important; /* White Text */
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 300; 
+      overflow: hidden;
+      line-height: 1.6;
+      box-sizing: border-box;
+      min-height: 100vh; 
+      z-index: 1;
+    }
+
+    #deer-placenta-section * {
+      box-sizing: border-box;
+    }
+
+    /* --- DARK LIQUID GLASS STYLE (From Screenshot 2) --- */
+    #deer-placenta-section .glass-container {
+      border-radius: 25px;
+      overflow: hidden;
+      
+      /* Dark Glass Background */
+      background: rgba(0, 0, 0, 0.4) !important; 
+      
+      /* Blur Effect */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      
+      /* Borders & Shadows */
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* ---------- LAYOUT WRAPPER ---------- */
+    #deer-placenta-section .main-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: 100vh;
+      padding: 2rem;
+      position: relative;
+      z-index: 2; 
+    }
+    
+    #deer-placenta-section .layout-container {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      max-width: 1200px;
+      min-height: 600px; 
+      padding: 3.5rem;
+      gap: 3rem; 
+    }
+
+    /* ---------- LEFT COLUMN (TEXT) ---------- */
+    #deer-placenta-section .left-content-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding-top: 4rem;
+      z-index: 5; 
+    }
+    
+    #deer-placenta-section .tech-label {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #ffffff !important; /* White for contrast */
+      opacity: 0.9;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    #deer-placenta-section .text-header h1 {
+      font-family: 'Satoshi', sans-serif !important;
+      font-size: 3rem !important;
+      font-weight: 700 !important; 
+      margin-bottom: 1.5rem !important;
+      line-height: 1.1 !important;
+      color: #ffffff !important; 
+      margin-top: 0 !important;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Legibility shadow */
+    }
+
+    #deer-placenta-section .text-header p {
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 300 !important;
+      font-size: 1.1rem !important;
+      line-height: 1.8 !important;
+      color: #eeeeee !important; 
+      max-width: 45ch;
+      margin-bottom: 2rem !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+
+    #deer-placenta-section .disclaimer {
+      font-family: 'Poppins', sans-serif !important;
+      font-weight: 300;
+      font-size: 0.7rem !important;
+      line-height: 1.5;
+      color: #cccccc !important;
+      opacity: 0.8;
+      margin-top: 2rem;
+      max-width: 45ch;
+      font-style: italic;
+    }
+
+    /* ---------- STAT BOX (Dark Mode) ---------- */
+    #deer-placenta-section .stat-box-container {
+      padding: 1rem 1.5rem;
+      text-align: left;
+      border-radius: 20px;
+      background: rgba(0, 0, 0, 0.25) !important; /* Darker bg */
+      border: 1px solid rgba(255, 255, 255, 0.15) !important;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1.5rem;
+      max-width: 420px;
+      margin-top: 1rem;
+    }
+    
+    #deer-placenta-section .stat-box-text p.label {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff !important; 
+      background: #7b021d !important; 
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      display: inline-block;
+      margin: 0;
+    }
+    
+    #deer-placenta-section .stat-box-value {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+    }
+    
+    #deer-placenta-section .stat-box-value span#counter {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #ff3333 !important; /* Bright Red for dark bg */
+      text-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
+    }
+    
+    #deer-placenta-section .stat-box-value span.multiplier-unit {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff !important;
+    }
+
+    #deer-placenta-section .up-arrow-icon {
+      width: 28px;
+      height: 28px;
+      background-color: #ff3333; 
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    
+    #deer-placenta-section .up-arrow-icon::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 8px solid #ffffff; 
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -60%);
+    }
+
+    /* ---------- RIGHT COLUMN ---------- */
+    #deer-placenta-section .right-content-column {
+      flex: 1.4;
+      position: relative; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #deer-placenta-section .animation-container {
+      position: relative; 
+      min-height: 400px; 
+      width: 200px;
+      margin: 0 auto;
+      z-index: 2;
+      overflow: visible !important; 
+    }
+
+    #deer-placenta-section #scene {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    /* --- DESKTOP LABELS (Updated to White Text) --- */
+    @media (min-width: 901px) {
+        #deer-placenta-section .label-group {
+          position: absolute;
+          width: 240px;
+          z-index: 10;
+        }
+
+        #deer-placenta-section #label-outer {
+          top: 25%; 
+          left: 72%; 
+          text-align: left;
+        }
+
+        #deer-placenta-section #label-outer::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          right: 100%; 
+          width: 50px; 
+          height: 1px;
+          border-bottom: 1px dashed rgba(255,255,255,0.6); /* White dashed line */
+          margin-right: 15px; 
+        }
+
+        #deer-placenta-section #label-inner {
+          top: 72%; 
+          right: 72%; 
+          text-align: right;
+        }
+
+        #deer-placenta-section #label-inner::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 100%; 
+          width: 50px; 
+          height: 1px;
+          border-bottom: 1px dashed rgba(255,255,255,0.6); /* White dashed line */
+          margin-left: 15px; 
+        }
+        
+        #deer-placenta-section .label-line-mobile {
+          display: none !important;
+        }
+    }
+    
+    #deer-placenta-section .label-text h3 {
+      font-family: 'Satoshi', sans-serif;
+      font-size: 1rem !important;
+      font-weight: 700 !important;
+      text-transform: uppercase;
+      color: #ffffff !important; 
+      margin: 0 0 0.25rem 0 !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+    
+    #deer-placenta-section .label-text p {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 300;
+      font-size: 0.85rem !important;
+      line-height: 1.4 !important;
+      color: #eeeeee !important; 
+      margin: 0 !important;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    /* ========================================================= */
+    /* ---------- MOBILE OPTIMIZATION ---------- */
+    /* ========================================================= */
+    @media (max-width: 900px) {
+      #deer-placenta-section .main-wrapper {
+        padding: 1rem;
+      }
+      
+      #deer-placenta-section .layout-container {
+        flex-direction: column; 
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        min-height: 0;
+        width: 100%;
+      }
+
+      #deer-placenta-section .left-content-column {
+        flex: none;
+        display: contents; 
+        padding-top: 0;
+      }
+      
+      #deer-placenta-section .text-header {
+        order: 1; 
+        text-align: left; 
+      }
+
+      #deer-placenta-section .text-header h1 {
+        font-size: 2.2rem !important;
+      }
+      
+      #deer-placenta-section .stat-box-container {
+        order: 3; 
+        max-width: 100%;
+        margin-top: 1.5rem;
+        flex-direction: row;
+        align-items: center;
+      }
+      
+      #deer-placenta-section .disclaimer { 
+        order: 4; 
+        margin: 1rem 0 0 0; 
+        text-align: left; 
+      }
+
+      #deer-placenta-section .right-content-column {
+        flex: none;
+        order: 2; 
+        position: static;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 1rem 0.5rem; 
+        align-items: center;
+        min-height: 350px;
+        overflow: visible !important;
+      }
+
+      #deer-placenta-section .animation-container {
+        grid-column: 2; 
+        grid-row: 1 / span 2; 
+        width: 100%; 
+        min-height: 350px;
+        margin: 0;
+        overflow: visible !important;
+      }
+
+      #deer-placenta-section .label-group {
+        position: static; 
+        display: flex;
+        flex-direction: column; 
+        width: 100%;
+        gap: 0;
+        grid-column: 1; 
+      }
+      
+      #deer-placenta-section #label-outer {
+        grid-row: 1;
+        align-self: end;
+        top: auto; left: auto; right: auto;
+        text-align: left !important;
+      }
+      
+      #deer-placenta-section #label-inner {
+        grid-row: 2;
+        align-self: start; 
+        top: auto; left: auto; right: auto;
+        text-align: left !important;
+      }
+
+      #deer-placenta-section #label-outer::before,
+      #deer-placenta-section #label-inner::after {
+        display: none !important;
+      }
+
+      #deer-placenta-section .label-line-mobile {
+        display: block !important;
+        width: 100%;
+        height: 1px;
+        background-color: rgba(255, 255, 255, 0.5) !important; /* White mobile line */
+        margin: 0.75rem 0 1.25rem 0; 
+        position: relative;
+        opacity: 0.5;
+      }
+      
+      #deer-placenta-section .label-line-mobile::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 6px; 
+        height: 6px; 
+        background-color: #ff3333 !important; 
+        border-radius: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="deer-placenta-section">
+  
+  <div class="main-wrapper">
+
+    <main class="layout-container glass-container">
+      
+      <div class="left-content-column">
+        <div class="text-header">
+          <span class="tech-label">Rejuvenation Technology</span>
+          <h1>The Power of<br>Deer Placenta</h1>
+          <p>Experience the breakthrough in cellular therapy. Our advanced dual-capsule technology preserves bio-active nutrients for maximum absorption and efficacy.</p>
+        </div>
+        
+        <div class="stat-box-container">
+          <div class="stat-box-text">
+            <p class="label">Cellular Regeneration</p>
+          </div>
+          <div class="stat-box-value">
+            <div class="up-arrow-icon"></div>
+            <span id="counter">0</span><span class="multiplier-unit">X</span>
+          </div>
+        </div>
+
+        <p class="disclaimer">*Based on the known properties of deer placenta growth factors and their role in cellular support.</p>
+      </div>
+  
+      <div class="right-content-column">
+        
+        <div class="label-group" id="label-outer">
+          <div class="label-text">
+            <div class="label-line-mobile"></div>
+            <h3>Outer Capsule</h3>
+            <p>Shields potent nutrients from digestion.</p>
+          </div>
+        </div>
+
+        <div class="animation-container">
+          <div id="scene"></div>
+        </div>
+        
+        <div class="label-group" id="label-inner">
+          <div class="label-text">
+            <div class="label-line-mobile"></div>
+            <h3>Inner Capsule</h3>
+            <p>Delivers regenerative growth factors.</p>
+          </div>
+        </div>
+      </div>
+  
+    </main>
+
+  </div> 
+</div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+  (() => {
+    // =================================================================
+    // 1. COUNTER LOGIC
+    // =================================================================
+    const counterElement = document.getElementById('counter');
+    let animationStarted = false;
+
+    const animateCounter = () => {
+      let currentNumber = 0;
+      const targetNumber = 30;
+      const duration = 2000; 
+      const interval = 50; 
+      const increment = targetNumber / (duration / interval);
+
+      const timer = setInterval(() => {
+        currentNumber += increment;
+        if (currentNumber >= targetNumber) {
+          currentNumber = targetNumber;
+          clearInterval(timer);
+        }
+        counterElement.textContent = Math.floor(currentNumber);
+      }, interval);
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !animationStarted) {
+          animateCounter();
+          animationStarted = true;
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    if(counterElement) observer.observe(counterElement);
+
+    // =================================================================
+    // 2. 3D CAPSULE ANIMATION
+    // =================================================================
+
+    const host = document.getElementById('scene');
+    const scene = new THREE.Scene();
+
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true, powerPreference:'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(host.clientWidth, host.clientHeight);
+    renderer.setClearColor(0x000000, 0); 
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.3; 
+    renderer.physicallyCorrectLights = true;
+    host.appendChild(renderer.domElement);
+
+    const camera = new THREE.PerspectiveCamera(28, host.clientWidth/host.clientHeight, 0.1, 200);
+    scene.add(camera);
+    
+    // --- SMART CAMERA RESIZING ---
+    function fitCameraToHeight(worldHeight, margin=0.95){
+      const aspect = camera.aspect;
+      let h = worldHeight * margin;
+      
+      // Mobile Adjustment
+      if(aspect < 1.0) {
+         h = h / aspect * 0.8; 
+      }
+
+      const dist = (h*0.5)/Math.tan(THREE.MathUtils.degToRad(camera.fov*0.5));
+      camera.position.set(0, 0.25, dist);
+      camera.lookAt(0,0,0);
+      camera.updateProjectionMatrix();
+    }
+    
+    // Lighting Setup
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x141414, 0.8));
+    const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(2.6,3.8,6.3); scene.add(key);
+    const fill= new THREE.DirectionalLight(0xffffff, 0.6); fill.position.set(-3.6,1.2,3.4); scene.add(fill);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.9); rim.position.set(-2.2,2.0,-5.6); scene.add(rim);
+
+    // --- COLORS: REVERTED TO ORIGINAL REDS ---
+    const RED_TOP    = 0xff3333; 
+    const RED_BOTTOM = 0xee2222; 
+    const RED_INNER  = 0xaa1a1a; 
+
+    function layeredMat(hex, extra={}) {
+      return new THREE.MeshPhysicalMaterial({
+        color: hex,
+        roughness: 0.25,
+        metalness: 0.15, 
+        transparent: true,
+        opacity: 0.6,      
+        transmission: 0.0,
+        ior: 1.45,
+        clearcoat: 0.8,
+        clearcoatRoughness: 0.1,
+        reflectivity: 0.5,
+        side: THREE.DoubleSide,
+        depthWrite: false,     
+        ...extra
+      });
+    }
+    
+    const matTopOuter = layeredMat(RED_TOP);
+    const matBotOuter = layeredMat(RED_BOTTOM);
+    const matInner    = layeredMat(RED_INNER, { opacity: 0.75 }); 
+
+    const rTop = 1.20;       
+    const rBot = 1.20;       
+    const wall = 0.08;       
+    const halfCyl = 2.0;
+    const openDistance = 2.8;
+
+    const topGroup = new THREE.Group();
+    const botGroup = new THREE.Group();
+    botGroup.renderOrder = 0;
+    topGroup.renderOrder = 1;
+    scene.add(topGroup, botGroup);
+
+    const segs = 64; 
+
+    // TOP CAPSULE
+    const topOuterCyl = new THREE.Mesh(new THREE.CylinderGeometry(rTop, rTop, halfCyl, segs, 1, true), matTopOuter);
+    topOuterCyl.position.y = halfCyl/2; topGroup.add(topOuterCyl);
+    const topOuterHem = new THREE.Mesh(new THREE.SphereGeometry(rTop, segs, 48, 0, Math.PI*2, 0, Math.PI/2), matTopOuter);
+    topOuterHem.position.y = halfCyl; topGroup.add(topOuterHem);
+    const topInnerCyl = new THREE.Mesh(new THREE.CylinderGeometry(rTop-wall, rTop-wall, halfCyl, segs, 1, true), matInner);
+    topInnerCyl.position.y = halfCyl/2; topGroup.add(topInnerCyl);
+    const topInnerHem = new THREE.Mesh(new THREE.SphereGeometry(rTop-wall, segs, 48, 0, Math.PI*2, 0, Math.PI/2), matInner);
+    topInnerHem.position.y = halfCyl; topGroup.add(topInnerHem);
+    
+    const lipTop = new THREE.Mesh(new THREE.TorusGeometry(rTop - wall*0.5, wall*0.46, 14, 88), matTopOuter); 
+    lipTop.rotation.x = Math.PI/2; lipTop.position.y = 0.0 + 0.001; topGroup.add(lipTop);
+
+    // BOTTOM CAPSULE
+    const botOuterCyl = new THREE.Mesh(new THREE.CylinderGeometry(rBot, rBot, halfCyl, segs, 1, true), matBotOuter);
+    botOuterCyl.position.y = -halfCyl/2; botGroup.add(botOuterCyl);
+    const botOuterHem = new THREE.Mesh(new THREE.SphereGeometry(rBot, segs, 48, 0, Math.PI*2, Math.PI/2, Math.PI/2), matBotOuter);
+    botOuterHem.position.y = -halfCyl; botGroup.add(botOuterHem);
+    const botInnerCyl = new THREE.Mesh(new THREE.CylinderGeometry(rBot-wall, rBot-wall, halfCyl, segs, 1, true), matInner);
+    botInnerCyl.position.y = -halfCyl/2; botGroup.add(botInnerCyl);
+    const botInnerHem = new THREE.Mesh(new THREE.SphereGeometry(rBot-wall, segs, 48, 0, Math.PI*2, Math.PI/2, Math.PI/2), matInner);
+    botInnerHem.position.y = -halfCyl; botGroup.add(botInnerHem);
+    
+    // INNER SLEEVE
+    const sleeveHeight = 0.2; 
+    const sleeveRadius = rBot - wall - 0.02; 
+    const sleeveGeo = new THREE.CylinderGeometry(sleeveRadius, sleeveRadius, sleeveHeight, segs, 1, true);
+    const sleeveMesh = new THREE.Mesh(sleeveGeo, matInner);
+    sleeveMesh.position.y = sleeveHeight / 2;
+    botGroup.add(sleeveMesh);
+
+    const lipBot = new THREE.Mesh(new THREE.TorusGeometry(rBot - wall*0.5, wall*0.46, 14, 88), matBotOuter);
+    lipBot.rotation.x = Math.PI/2; lipBot.position.y = -0.0 - 0.001; botGroup.add(lipBot);
+
+    // Initial Position
+    topGroup.position.y = 0;
+    botGroup.position.y = 0;
+
+    const totalHeight = (halfCyl*2 + rTop*2) + openDistance*2 + 2.0;
+
+    function onResize() {
+      const width = host.clientWidth;
+      const height = host.clientHeight;
+      if (width === 0 || height === 0) return;
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
+      fitCameraToHeight(totalHeight);
+    }
+    
+    new ResizeObserver(onResize).observe(host);
+    onResize();
+
+    // ---------- Particles (3D Swirl) ----------
+    const isMobileThree = window.innerWidth < 768;
+    const p3Count = isMobileThree ? 2000 : 4500; 
+
+    const pGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(p3Count*3);
+    const velocities = new Float32Array(p3Count*3);
+    const life = new Float32Array(p3Count);
+
+    for (let i=0;i<p3Count;i++){
+      positions[i*3] = positions[i*3+1] = positions[i*3+2] = 0;
+      velocities[i*3] = velocities[i*3+1] = velocities[i*3+2] = 0;
+      life[i] = 1; 
+    }
+
+    pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    pGeo.setAttribute('aLife', new THREE.BufferAttribute(life, 1));
+
+    const pMat = new THREE.PointsMaterial({
+      color: 0x990000, // Reverted to Original Particle Color
+      size: 0.07,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: 0.8,
+      depthWrite: false
+    });
+
+    const points = new THREE.Points(pGeo, pMat);
+    scene.add(points);
+
+    function spawnBurst(count, radius=0.06, speed=2.0){
+      let spawned = 0;
+      for (let i=0;i<p3Count && spawned<count;i++){
+        if (life[i] >= 1){
+          const u = Math.random(), v = Math.random();
+          const theta = 2*Math.PI*u;
+          const phi = Math.acos(2*v - 1);
+          const rr = radius*Math.cbrt(Math.random());
+          const x = rr*Math.sin(phi)*Math.cos(theta);
+          const y = rr*Math.cos(phi);
+          const z = rr*Math.sin(phi)*Math.sin(theta);
+          const dir = new THREE.Vector3(x, y*0.42, z).normalize();
+
+          positions[i*3]    = x;
+          positions[i*3+1] = y;
+          positions[i*3+2] = z;
+
+          const vmag = speed*(0.7+Math.random()*0.9);
+          velocities[i*3]    = dir.x*vmag;
+          velocities[i*3+1] = dir.y*vmag;
+          velocities[i*3+2] = dir.z*vmag;
+
+          life[i] = 0; spawned++;
+        }
+      }
+      pGeo.attributes.position.needsUpdate = true;
+      pGeo.attributes.aLife.needsUpdate = true;
+    }
+
+    // ---------- Timeline ----------
+    let playing = false, t = 0;
+    const openDelay = 0.8;
+    const openTime  = 2.2;  
+    const flowTime  = 3.0;  
+    const suckTime  = 2.2;  
+    const closeTime = 2.2;  
+    const totalTime = openDelay + openTime + flowTime + suckTime + closeTime + 0.5;
+
+    const smooth = x => (x<=0?0:x>=1?1:(x*x*x*(x*(x*6-15)+10))); 
+
+    function reset(){
+      t = 0;
+      topGroup.position.y = 0;
+      botGroup.position.y = 0; 
+      for (let i=0;i<p3Count;i++){
+        life[i]=1;
+        velocities[i*3]=velocities[i*3+1]=velocities[i*3+2]=0;
+        positions[i*3]=positions[i*3+1]=positions[i*3+2]=0;
+      }
+      pGeo.attributes.position.needsUpdate = true;
+      pGeo.attributes.aLife.needsUpdate = true;
+      playing = false;
+    }
+    function play(){ reset(); playing = true; }
+
+    setTimeout(play, 400);
+
+    let last = performance.now();
+    function loop(now){
+      requestAnimationFrame(loop);
+      const dt = Math.min((now-last)/1000, 0.033);
+      last = now;
+
+      if (playing){
+        t += dt;
+        const tOpenStart = openDelay;
+        const tOpenEnd    = tOpenStart + openTime;
+        const tFlowEnd    = tOpenEnd + flowTime;
+        const tSuckEnd    = tFlowEnd + suckTime;
+        const tCloseEnd   = tSuckEnd + closeTime;
+
+        if (t >= tOpenStart){
+          const kO = smooth(Math.min((t - tOpenStart)/openTime, 1));
+          topGroup.position.y = kO*openDistance;
+          botGroup.position.y = -kO*openDistance;
+        }
+
+        if (t > tOpenStart + 0.2 && t < tFlowEnd){
+          spawnBurst(isMobileThree ? 200 : 300); 
+        }
+
+        if (t > tFlowEnd){
+          const kC = smooth(Math.min((t - tFlowEnd)/closeTime, 1));
+          topGroup.position.y = openDistance * (1 - kC);
+          botGroup.position.y = -openDistance * (1 - kC);
+        }
+
+        if (t >= tCloseEnd || t >= totalTime) {
+          play(); 
+        }
+      }
+
+      const drag = 0.986;
+      const suction  = (t >= (openDelay+openTime+flowTime));
+      const inFlow   = (t > openDelay) && !suction;
+      const swirlGain = inFlow ? 1.15 : 0.55;
+      const suctionGain = suction ? 2.6 : 0.0;
+
+      for (let i=0;i<p3Count;i++){
+        if (life[i] < 1){
+          const ix = i*3;
+          let x=positions[ix], y=positions[ix+1], z=positions[ix+2];
+
+          const rXZ = Math.max(0.0001, Math.hypot(x,z));
+          const tx = (-z / rXZ);
+          const tz = ( x / rXZ);
+          const swirl = swirlGain*(0.85 + 0.15*Math.random());
+          velocities[ix]    += tx*swirl*dt;
+          velocities[ix+2] += tz*swirl*dt;
+          velocities[ix+1] += -0.24*dt;
+
+          if (suction){
+            const toX=-x, toY=-y, toZ=-z;
+            const dist = Math.max(0.0001, Math.hypot(toX,toY,toZ));
+            const s = suctionGain*dt;
+            velocities[ix]    += (toX/dist)*s;
+            velocities[ix+1] += (toY/dist)*s;
+            velocities[ix+2] += (toZ/dist)*s;
+
+            if (dist < 0.12){ 
+              life[i] = 1;
+              velocities[ix]=velocities[ix+1]=velocities[ix+2]=0;
+              continue;
+            }
+          }
+
+          positions[ix]    += velocities[ix]*dt;
+          positions[ix+1] += velocities[ix+1]*dt;
+          positions[ix+2] += velocities[ix+2]*dt;
+          velocities[ix]    += (Math.random()-0.5)*0.06*dt;
+          velocities[ix+1] += (Math.random()-0.5)*0.05*dt; 
+          velocities[ix+2] += (Math.random()-0.5)*0.06*dt;
+          velocities[ix]*=drag; velocities[ix+1]*=drag; velocities[ix+2]*=drag;
+
+          if (!suction){ life[i] += dt*0.18; if (life[i] >= 1) life[i]=1; } 
+        }
+      }
+      pGeo.attributes.position.needsUpdate = true;
+      renderer.render(scene, camera);
+    }
+    loop(performance.now());
+  })();
+  </script>
+</body>
+</html>
