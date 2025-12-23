@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* --- SCOPED STYLES --- */
+  #brand-marquee-section {
+    background-color: #fcfdfb !important; /* Ivory Cream */
+    padding: 40px 0 !important; /* Reduced padding for smaller look */
+    overflow: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+
+  /* Optional Label */
+  #brand-marquee-section .marquee-label {
+    text-align: center;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 12px; /* Smaller font */
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #7b021d !important; /* Crimson Wine */
+    margin-bottom: 30px;
+    opacity: 0.8;
+  }
+
+  /* Gradient Edges (Fade effect) */
+  #brand-marquee-section::before,
+  #brand-marquee-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  #brand-marquee-section::before {
+    left: 0;
+    background: linear-gradient(to right, #fcfdfb, transparent);
+  }
+
+  #brand-marquee-section::after {
+    right: 0;
+    background: linear-gradient(to left, #fcfdfb, transparent);
+  }
+
+  /* Track Container */
+  .marquee-track-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 0;
+  }
+
+  /* The Moving Track */
+  .marquee-track {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3rem; /* Reduced gap for smaller items */
+    min-width: 100%;
+    animation: scroll 40s linear infinite;
+  }
+  
+  /* Pause on Hover */
+  .marquee-track-container:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Logo Styling */
+  .marquee-logo {
+    height: 45px; /* MADE SMALLER (was 60px) */
+    width: auto;
+    object-fit: contain;
+    
+    /* REVERSED LOGIC: Color by default */
+    filter: grayscale(0%);
+    opacity: 1;
+    
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  /* Hover Effect: Turns Grey */
+  .marquee-logo:hover {
+    filter: grayscale(100%);
+    opacity: 0.5; /* Fades out */
+    transform: scale(0.95); /* Slight shrink */
+  }
+
+  /* Animation Keyframes */
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); } 
+  }
+
+  /* Mobile Adjustment */
+  @media (max-width: 768px) {
+    .marquee-track {
+      gap: 1.5rem;
+      animation-duration: 20s;
+    }
+    .marquee-logo {
+      height: 30px; /* Even smaller on mobile */
+    }
+    #brand-marquee-section::before,
+    #brand-marquee-section::after {
+      width: 40px; 
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="brand-marquee-section">
+  
+  <div class="marquee-label">Trusted By Industry Leaders</div>
+
+  <div class="marquee-track-container">
+
+    <div class="marquee-track">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-1.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-2.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-3.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-4.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-5.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-6.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-7.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-8.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-9.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-10.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-11.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-12.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-13.png" class="marquee-logo" alt="Partner Brand">
+    </div>
+
+    <div class="marquee-track">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-1.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-2.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-3.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-4.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-5.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-6.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-7.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-8.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-9.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-10.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-11.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-12.png" class="marquee-logo" alt="Partner Brand">
+      <img src="https://kishord45.sg-host.com/wp-content/uploads/2025/12/brand-screenshot-13.png" class="marquee-logo" alt="Partner Brand">
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
