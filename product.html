@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>EINNALAB – Deer Placenta 30,000mg</title>
+
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ======= Scoped Design Tokens ======= */
+  .einna {
+    /* Brand Palette: Crimson Wine */
+    --brand: #7b021d;       
+    --brand-light: #a31636; 
+    --brand-bg: #fff1f4;    
+    
+    /* Neutrals */
+    --ink: #28282b;         
+    --muted: #6c757d;       
+    --bg: #fffbfb;          
+    --card: #ffffff;        
+    --border: #f0f0f0;      
+    
+    /* Accents */
+    --ring: #ffe2e2;
+    --shadow: 0 15px 40px rgba(0,0,0,0.06); 
+    --radius: 20px;         
+  }
+
+  .einna * { box-sizing: border-box; }
+  
+  /* BASE TYPOGRAPHY */
+  .einna {
+    font-family: 'Poppins', sans-serif; /* Body Text */
+    font-weight: 300;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+
+  /* HEADINGS & INTERACTIVE (Satoshi) */
+  .einna h1, .einna h2, .einna h3, 
+  .einna button, .einna .label, 
+  .einna .price, .einna .count, 
+  .einna .t-title, .einna .t-price, 
+  .einna .badge {
+    font-family: 'Satoshi', sans-serif;
+  }
+
+  .einna .wrap { max-width: 1100px; margin: 0 auto; padding: 20px; }
+  
+  /* MAIN CARD */
+  .einna .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    border: 1px solid rgba(0,0,0,0.03);
+    animation: einnaFadeUp .6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  
+  @media (min-width: 980px) {
+    .einna .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    .einna .card { padding: 50px; }
+  }
+
+  @keyframes einnaFadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+  /* ======= Gallery ======= */
+  .einna .mainbox {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+  }
+  
+  .einna .mainbox img {
+    width: 100%; height: 100%; object-fit: contain;
+    transition: transform 0.4s ease;
+    mix-blend-mode: multiply; 
+  }
+  .einna .mainbox:hover img { transform: scale(1.03); }
+
+  .einna .thumbs { display: flex; gap: 10px; margin-top: 16px; overflow-x: auto; padding-bottom: 4px; scroll-snap-type: x mandatory; }
+  .einna .thumbs::-webkit-scrollbar { height: 4px; }
+  .einna .thumbs::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
+  
+  .einna .thumb {
+    flex: 0 0 74px; height: 74px;
+    border: 1px solid var(--border); border-radius: 14px;
+    background: #fff; display: grid; place-items: center;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .einna .thumb img { max-width: 80%; max-height: 80%; object-fit: contain; }
+  .einna .thumb.is-active { border-color: var(--brand); box-shadow: 0 0 0 3px var(--ring); }
+
+  /* ======= Right Column ======= */
+  /* TITLE */
+  .einna .p-title {
+    margin: 0 0 10px;
+    font-size: 32px; /* Larger */
+    font-weight: 900; /* Satoshi Black */
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  /* RATING */
+  .einna .rating { display: flex; align-items: center; gap: 10px; margin: 10px 0 20px; }
+  .einna .stars { color: #ffb703; letter-spacing: 2px; font-size: 14px; }
+  .einna .muted { color: var(--muted); font-size: 13px; font-weight: 400; }
+
+  /* ALERTS (Stock/Promo) */
+  .einna .promo {
+    background: var(--brand-bg);
+    border: 1px solid rgba(123, 2, 29, 0.1);
+    color: var(--brand);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin: 10px 0 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    font-size: 14px;
+  }
+  .einna .promo .count { font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.5px; }
+
+  .einna .stock {
+    display: inline-block;
+    background: #fffbf0; border: 1px solid #ffeeba; color: #b45309;
+    border-radius: 50px; padding: 6px 14px; margin-bottom: 20px;
+    font-size: 13px; font-weight: 500;
+  }
+  .einna .stock.low { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
+  
+  /* PRICE */
+  .einna #price {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--brand);
+    margin: 10px 0 24px;
+    letter-spacing: -1px;
+  }
+
+  /* PACKAGE SELECTOR */
+  .einna .label { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px; display: block;}
+  
+  .einna .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 720px) { .einna .opts { grid-template-columns: 1fr; } }
+  
+  .einna .opts input { display: none; }
+  
+  .einna .opt {
+    position: relative; display: flex; flex-direction: column; gap: 6px;
+    border: 1px solid var(--border); border-radius: 16px; padding: 20px;
+    background: #fff; cursor: pointer; min-height: 140px;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+  .einna .opt:hover { border-color: #d1d5db; transform: translateY(-2px); }
+  
+  .einna .opt .t-title { font-size: 18px; font-weight: 700; color: var(--ink); }
+  .einna .opt .t-price { font-size: 26px; font-weight: 900; color: var(--ink); margin-top: auto; }
+  .einna .opt .t-per { font-size: 13px; font-weight: 500; color: var(--muted); font-family: 'Poppins', sans-serif; }
+  
+  .einna .opt .badge {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: var(--brand); color: #fff; border-radius: 50px;
+    padding: 6px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(123, 2, 29, 0.3);
+  }
+  
+  /* Selected State */
+  .einna .opts input:checked + .opt {
+    border-color: var(--brand);
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--brand), 0 10px 25px rgba(123, 2, 29, 0.1);
+  }
+  .einna .opts input:checked + .opt .t-title,
+  .einna .opts input:checked + .opt .t-price { color: var(--brand); }
+
+  /* BUTTONS (Gradient Style) */
+  .einna .choose, .einna .sticky-btn, .einna #m-add {
+    width: 100%; display: inline-flex; justify-content: center; align-items: center;
+    border: 0; border-radius: 14px; padding: 18px 24px;
+    font-size: 16px; font-weight: 700; letter-spacing: 0.5px;
+    color: #fff; cursor: pointer;
+    background: linear-gradient(180deg, var(--brand) 0%, var(--brand-light) 100%);
+    box-shadow: 0 10px 20px rgba(123, 2, 29, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .einna .choose:hover, .einna .sticky-btn:hover, .einna #m-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(123, 2, 29, 0.35);
+  }
+  .einna .choose:active { transform: scale(0.98); }
+
+  /* Trust Badges */
+  .einna .trust { display: flex; gap: 12px; margin-top: 24px; justify-content: center; }
+  .einna .trust div {
+    font-size: 11px; font-weight: 500; color: var(--muted);
+    background: #f8f8fa; padding: 8px 12px; border-radius: 8px;
+  }
+
+  /* Sticky Bar */
+  .einna .sticky-bar {
+    position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 9997; display: none;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .einna .sticky-bar.show { display: block; animation: einnaFadeUp 0.3s ease-out; }
+
+  /* ======= Lightbox ======= */
+  .einna .lightbox { position: fixed; inset: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(5px); display: none; align-items: center; justify-content: center; z-index: 9999; }
+  .einna .lightbox.show { display: flex; }
+  .einna .lightbox img { max-width: 90vw; max-height: 85vh; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.1); }
+  .einna .lb-close { position: absolute; top: 20px; right: 20px; background: #fff; border: 1px solid #eee; border-radius: 50%; width: 44px; height: 44px; font-size: 24px; cursor: pointer; color: var(--ink); }
+
+  /* ======= Modal (DARK MODE) ======= */
+  .einna .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.6); opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9998; backdrop-filter: blur(4px); }
+  .einna .backdrop.show { opacity: 1; pointer-events: auto; }
+  
+  .einna .modal {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    /* DARK BACKGROUND */
+    background: #1c1c1e; color: #ffffff;
+    border-top-left-radius: 24px; border-top-right-radius: 24px;
+    transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999; max-height: 90vh; overflow: auto;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .einna .modal.show { transform: translateY(0); }
+  
+  .einna .modal .inner { padding: 24px 24px calc(24px + env(safe-area-inset-bottom)); max-width: 600px; margin: 0 auto; }
+  
+  .einna .mod-head { 
+    display: flex; align-items: center; justify-content: space-between; 
+    padding-bottom: 20px; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1); 
+  }
+  .einna .mod-head img { height: 32px; width: auto; }
+  .einna .mod-close { 
+    background: rgba(255,255,255,0.1); border: 0; color: #fff; 
+    border-radius: 50%; width: 36px; height: 36px; 
+    font-size: 18px; cursor: pointer; display:grid; place-items:center;
+  }
+
+  /* Modal Product Info */
+  .einna .mod-prod { display: flex; gap: 16px; align-items: center; margin-bottom: 20px; }
+  .einna .mod-prod img { width: 80px; height: 80px; object-fit: contain; border-radius: 12px; background: #fff; padding: 5px; }
+  
+  /* Variant List in Modal (Dark Theme) */
+  .einna .variant-list { display: grid; gap: 12px; }
+  .einna .vopt {
+    border: 1px solid rgba(255,255,255,0.15); border-radius: 14px; padding: 14px;
+    cursor: pointer; transition: all 0.2s; display: flex; justify-content: space-between; align-items: center;
+    background: transparent;
+  }
+  .einna .vopt:hover { background: rgba(255,255,255,0.05); }
+  
+  /* Selected Variant Dark */
+  .einna .vopt.sel { 
+    border-color: var(--brand); 
+    background: rgba(123, 2, 29, 0.15); 
+    box-shadow: 0 0 0 1px var(--brand); 
+  }
+  
+  .einna .vleft strong { display: block; font-size: 16px; font-family: 'Satoshi', sans-serif; font-weight: 700; color: #fff; }
+  .einna .vleft .badge { display: inline-block; margin-top: 4px; padding: 2px 6px; border-radius: 4px; font-size: 10px; background: var(--brand); color: #fff; }
+  .einna .vopt .vright strong { color: #fff; font-family: 'Satoshi', sans-serif; font-size: 16px; }
+  .einna .vopt .vright .per-bottle { color: #9ca3af; font-size: 11px; }
+
+  /* Quantity Selector (Dark Theme) */
+  .einna .mod-qty {
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(255,255,255,0.05); border-radius: 14px; padding: 12px 16px; margin-top: 24px;
+  }
+  .einna .mod-qty strong { color: #fff; font-family:'Satoshi',sans-serif; }
+  
+  .einna .mod-qty .ctr { 
+    display: flex; align-items: center; gap: 4px; 
+    background: #000; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 4px; 
+  }
+  .einna .mod-qty button { 
+    width: 36px; height: 36px; background: transparent; 
+    color: #fff; border-radius: 8px; font-size: 18px; padding:0; box-shadow:none; border:none;
+  }
+  .einna .mod-qty button:hover { background: rgba(255,255,255,0.15); }
+  .einna .mod-qty .num { color: #fff; width:30px; text-align:center; font-weight:600; }
+
+  .einna .mod-price { margin-top: 20px; font-family: 'Satoshi', sans-serif; font-weight: 700; font-size: 20px; text-align: right; color: #fff; }
+
+  .einna .no-scroll { overflow: hidden; }
+  
+  @media (max-width: 768px) {
+    .einna .p-title { font-size: 26px; }
+  }
+</style>
+</head>
+
+<body style="margin:0;background:#f8f9fa">
+
+<div id="einna-pro" class="einna">
+  <div class="wrap">
+    <div class="card tilt" id="product-card">
+      <div class="grid">
+
+        <section class="gallery">
+          <div class="mainbox">
+            <div class="main">
+              <img id="img-main"
+                   src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Front-768x614.png"
+                   alt="EINNALAB Deer Placenta">
+            </div>
+          </div>
+          <div class="thumbs" id="thumbs">
+            <button class="thumb is-active">
+              <img src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Front-768x614.png" alt="">
+            </button>
+            <button class="thumb">
+              <img src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Left-768x614.png" alt="">
+            </button>
+            <button class="thumb">
+              <img src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Right-768x614.png" alt="">
+            </button>
+            <button class="thumb">
+              <img src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-Lab-Metal-Bac-ONLY-768x743.png" alt="">
+            </button>
+            <button class="thumb">
+              <img src="https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-Lab-Ingredients-ONLY-768x743.png" alt="">
+            </button>
+          </div>
+        </section>
+
+        <section class="info">
+          <h2 id="title" class="p-title">Deer Placenta 30,000mg – 1 Bottle | EINNALAB</h2>
+
+          <div class="rating">
+            <div class="stars">★★★★★</div>
+            <span class="muted">4.9 (Based on 984 reviews)</span>
+          </div>
+
+          <div class="stock" id="stock">Hurry! Only <span id="stock-num">17</span> left in stock</div>
+          
+          <div class="promo" id="promo">
+            <span><strong>Limited Time Offer</strong> ends in:</span>
+            <span class="count" id="countdown">02:00:00</span>
+          </div>
+
+          <p id="price">S$140.00</p>
+
+          <span class="label" id="pkg-label">Select Your Package</span>
+          
+          <div class="opts" role="radiogroup">
+            <input id="p-1" type="radio" name="pkg" checked
+                   data-slug="1-bottle" data-price="140">
+            <label for="p-1" class="opt">
+              <div class="t-title">1 Bottle</div>
+              <div class="t-price">S$140.00</div>
+              <div class="t-per">Just S$140.00/bottle</div>
+            </label>
+
+            <input id="p-10" type="radio" name="pkg"
+                   data-slug="10-bottles" data-price="900">
+            <label for="p-10" class="opt">
+              <span class="badge">Best Value</span>
+              <div class="t-title">10 Bottles</div>
+              <div class="t-price">S$900.00</div>
+              <div class="t-per">Just S$90.00/bottle</div>
+            </label>
+          </div>
+
+          <button class="choose" id="choose">Choose Package</button>
+
+          <div class="trust">
+            <div>Lab Certified</div>
+            <div>Secure Checkout</div>
+            <div>Made in NZ</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-bar" id="sticky-bar">
+    <button class="sticky-btn" id="sticky-choose">Choose Package</button>
+  </div>
+
+  <div class="lightbox" id="lb">
+    <button class="lb-close">✕</button>
+    <img id="lb-img" alt="">
+  </div>
+
+  <div class="backdrop" id="einna-backdrop"></div>
+  <div class="modal" id="einna-modal">
+    <div class="inner">
+      <div class="mod-head">
+        <img src="https://einnalab.com/wp-content/uploads/2021/10/einna-logo.png" alt="EINNALAB Logo">
+        <button class="mod-close" id="mod-close">✕</button>
+      </div>
+      
+      <div class="mod-prod">
+        <img id="mod-img" src="" alt="">
+        <div>
+          <div id="modal-title" style="font-family:'Satoshi',sans-serif; font-weight:700; font-size:18px; color:#fff;"></div>
+          <div id="mod-sub" class="per" style="color:#9ca3af; font-size:13px"></div>
+        </div>
+      </div>
+
+      <div class="variant-list" id="vlist"></div>
+
+      <div class="mod-qty">
+        <strong style="font-family:'Satoshi',sans-serif">Quantity</strong>
+        <div class="ctr">
+          <button type="button" id="m-down">−</button>
+          <span class="num" id="m-num">1</span>
+          <button type="button" id="m-up">+</button>
+          <input type="number" min="1" value="1" id="m-field" style="display:none">
+        </div>
+      </div>
+
+      <div class="mod-price" id="m-price"></div>
+      
+      <div style="margin-top:20px">
+        <button id="m-add">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  /* ===== Config ===== */
+  const CHECKOUT_PATH = '/checkout/'; 
+  // Update with real Product IDs
+  const SIMPLE = { '1-bottle': 352, '10-bottles': 3808 }; 
+
+  const productData = {
+    name: "Deer Placenta 30,000mg",
+    basePerBottle: 140,
+    variants: [
+      { id:'1-bottle', label:'1 Bottle', price:140, totalBottles:1,
+        img:"https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-DarkRed-Front-768x614.png", best:false, pid:SIMPLE['1-bottle'] },
+      { id:'10-bottles', label:'10 Bottles', price:900, totalBottles:10,
+        img:"https://einnalab.com/wp-content/uploads/2023/11/EiNNALAB-Deer-Placenta-30000mg-Front-10-Bot-768x480.jpg", best:true,  pid:SIMPLE['10-bottles'] }
+    ]
+  };
+
+  /* ===== Helpers ===== */
+  const root = document.getElementById('einna-pro');
+  const $ = (sel,scope=root)=> (scope||document).querySelector(sel);
+  const $$ = (sel,scope=root)=> Array.from((scope||document).querySelectorAll(sel));
+  const clamp1 = n => Math.max(1, parseInt(n||'1',10));
+  const money  = n => 'S$' + Number(n).toFixed(2);
+
+  const main = $('#img-main');
+  const thumbs = $$('#thumbs .thumb');
+  const titleEl = $('#title');
+  const priceEl = $('#price');
+  const radios = $$('input[name="pkg"]');
+  const chooseBtn = $('#choose');
+  const stickyChoose = $('#sticky-choose');
+  const stickyBar = $('#sticky-bar');
+  const productCard = document.getElementById('product-card');
+
+  /* Lightbox */
+  const lb = $('#lb');
+  const lbImg = $('#lb-img');
+  const lbClose = $('.lb-close', lb);
+
+  /* Modal */
+  const backdrop = $('#einna-backdrop');
+  const modal = $('#einna-modal');
+  const mClose = $('#mod-close');
+  const mList = $('#vlist');
+  const mImg = $('#mod-img');
+  const mTitle = $('#modal-title');
+  const mSub = $('#mod-sub');
+  const mNum = $('#m-num');
+  const mField = $('#m-field');
+  const mUp = $('#m-up');
+  const mDown = $('#m-down');
+  const mPrice = $('#m-price');
+  const mAdd = $('#m-add');
+
+  let currentVariantId = '1-bottle';
+  let modalVariantId   = '1-bottle';
+
+  /* Prevent context menu */
+  [main, ...$$('.thumb img')].forEach(img=>{
+    img.addEventListener('contextmenu', e=> e.preventDefault());
+    img.setAttribute('draggable','false');
+  });
+
+  /* 3D Tilt */
+  const tiltCard = $('.tilt');
+  tiltCard?.addEventListener('mousemove', (e)=>{
+    const r = tiltCard.getBoundingClientRect();
+    const dx = (e.clientX - (r.left + r.width/2)) / r.width;
+    const dy = (e.clientY - (r.top + r.height/2)) / r.height;
+    tiltCard.style.transform = `perspective(1000px) rotateX(${(-dy*4).toFixed(2)}deg) rotateY(${(dx*4).toFixed(2)}deg)`;
+  });
+  tiltCard?.addEventListener('mouseleave', ()=> tiltCard.style.transform = '');
+
+  /* Gallery Logic */
+  thumbs.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      thumbs.forEach(t=>t.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const src = btn.querySelector('img').src;
+      main.style.opacity=0;
+      setTimeout(()=>{ main.src = src; main.style.opacity=1; },150);
+    });
+  });
+
+  function openLB(src){ lbImg.src = src; lb.classList.add('show'); }
+  function closeLB(){ lb.classList.remove('show'); lbImg.src=''; }
+  main.addEventListener('click', ()=> openLB(main.src));
+  lbClose.addEventListener('click', closeLB);
+  lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLB(); });
+
+  /* Update Page Data */
+  function updatePdpFromVariant(){
+    const v = productData.variants.find(x=>x.id===currentVariantId) || productData.variants[0];
+    titleEl.textContent = `${productData.name} – ${v.label} | EINNALAB`;
+    priceEl.textContent = money(v.price);
+    if(v.id==='1-bottle'){ $('#p-1').checked = true; } else { $('#p-10').checked = true; }
+  }
+  updatePdpFromVariant();
+
+  radios.forEach(inp=>{
+    inp.addEventListener('change', ()=>{
+      currentVariantId = inp.dataset.slug;
+      updatePdpFromVariant();
+      openModal(currentVariantId);
+    });
+  });
+
+  /* Modal Logic */
+  function openModal(selectId){
+    modalVariantId = selectId || currentVariantId;
+    mField.value = 1; mNum.textContent = '1';
+    renderModal(modalVariantId);
+    document.body.classList.add('no-scroll');
+    backdrop.classList.add('show');
+    modal.classList.add('show');
+  }
+  
+  function closeModal(apply=false){
+    backdrop.classList.remove('show');
+    modal.classList.remove('show');
+    document.body.classList.remove('no-scroll');
+    if(apply){ applyModalSelectionToPDP(); }
+  }
+
+  chooseBtn.addEventListener('click', ()=> openModal(currentVariantId));
+  stickyChoose.addEventListener('click', ()=> openModal(currentVariantId));
+
+  function moneyPerBottle(v){ return `(S$${(v.price/v.totalBottles).toFixed(2)}/bottle)`; }
+  function savings(v){ const base = productData.basePerBottle*v.totalBottles; return Math.max(0, base - v.price); }
+
+  function renderModal(selId){
+    const v = productData.variants.find(x=>x.id===selId) || productData.variants[0];
+    mImg.src = v.img;
+    mTitle.innerHTML = `${productData.name} – <span style="color:var(--brand)">${v.label}</span>`;
+    mSub.textContent = `${money(v.price)} ${moneyPerBottle(v)}`;
+
+    mList.innerHTML = productData.variants.map(x=>{
+      const s = savings(x);
+      return `
+      <div class="vopt ${x.id===selId?'sel':''}" data-id="${x.id}">
+        <div class="vleft">
+          <strong>${x.label}</strong>
+          ${x.best?`<span class="badge">Best Value</span>`:''}
+          ${s>0?`<span style="color:#4ade80; font-size:12px; font-weight:600">Save S$${s.toFixed(0)}</span>`:''}
+        </div>
+        <div class="vright" style="text-align:right">
+          <strong>${money(x.price)}</strong>
+          <div class="per-bottle">${moneyPerBottle(x)}</div>
+        </div>
+      </div>`;
+    }).join('');
+
+    $$('.vopt', mList).forEach(el=>{
+      el.addEventListener('click', ()=>{
+        modalVariantId = el.dataset.id;
+        renderModal(modalVariantId);
+        updateModalTotals();
+      });
+    });
+
+    updateModalTotals();
+  }
+
+  function updateModalTotals(){
+    const v = productData.variants.find(x=>x.id===modalVariantId) || productData.variants[0];
+    const qty = clamp1(mField.value);
+    const t = v.price * qty;
+    const s = savings(v) * qty;
+    
+    mPrice.innerHTML = s>0 
+      ? `Total: ${money(t)} <span style="font-size:13px; font-weight:400; color:#4ade80; display:block">You save S$${s.toFixed(0)}</span>` 
+      : `Total: ${money(t)}`;
+      
+    mAdd.textContent = `Buy ${qty>1 ? qty+' × ' : ''}${v.label} Now`;
+  }
+
+  mUp.addEventListener('click', ()=>{ mField.value = clamp1(+mField.value+1); mNum.textContent=mField.value; updateModalTotals(); });
+  mDown.addEventListener('click', ()=>{ mField.value = Math.max(1, clamp1(+mField.value-1)); mNum.textContent=mField.value; updateModalTotals(); });
+
+  function applyModalSelectionToPDP(){
+    currentVariantId = modalVariantId;
+    updatePdpFromVariant();
+  }
+
+  async function addToCartThenGo(pid, qty, dest){
+    // Simulate add to cart or implement real ajax
+    window.location.href = dest;
+  }
+
+  mAdd.addEventListener('click', async (e)=>{
+    e.preventDefault();
+    const v = productData.variants.find(x=>x.id===modalVariantId);
+    const qty = clamp1(mField.value);
+    applyModalSelectionToPDP();
+    closeModal(false);
+    await addToCartThenGo(v.pid, qty, CHECKOUT_PATH);
+  });
+
+  mClose.addEventListener('click', ()=> closeModal(true));
+  backdrop.addEventListener('click', ()=> closeModal(true));
+
+  /* Sticky Bar Observer */
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(ent=>{
+      if(ent.isIntersecting && ent.intersectionRatio >= 0.4){
+        stickyBar.classList.remove('show');
+      }else{
+        stickyBar.classList.add('show');
+      }
+    });
+  }, {threshold:[0,0.4]});
+  io.observe(productCard);
+
+  /* Countdown & Stock Logic (Simulated) */
+  const stockNum = $('#stock-num');
+  const stockBox = $('#stock');
+  
+  (function simulateStock(){
+    let n = parseInt(stockNum.textContent||'17',10);
+    function step(){
+      if(n>5){ n--; stockNum.textContent = n; }
+      stockBox.classList.toggle('low', n<10);
+      setTimeout(step, Math.random()*(45000-15000)+15000);
+    }
+    setTimeout(step, 10000);
+  })();
+
+  (function(){
+    // Countdown 2 hours
+    let end = new Date(Date.now() + 7200000);
+    function tick(){
+      let rem = end - Date.now();
+      if(rem<=0){ end = new Date(Date.now() + 7200000); rem = 7200000; }
+      let h=Math.floor(rem/36e5), m=Math.floor((rem%36e5)/6e4), s=Math.floor((rem%6e4)/1e3);
+      $('#countdown').textContent = `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+      requestAnimationFrame(()=>setTimeout(tick,1000));
+    }
+    tick();
+  })();
+
+})();
+</script>
+</body>
+</html>
