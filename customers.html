@@ -225,18 +225,6 @@
             cursor: pointer !important;
             color: #28282b !important;
         }
-
-        .drag-hint {
-            margin-top: 20px !important;
-            font-family: 'Satoshi', sans-serif !important;
-            font-size: 12px !important;
-            font-weight: 700 !important;
-            color: #7b021d !important; /* Crimson Wine */
-            letter-spacing: 1.5px !important;
-            text-transform: uppercase !important;
-            opacity: 0.8 !important;
-        }
-
     </style>
 </head>
 <body>
@@ -249,8 +237,6 @@
             <div class="carousel-scene" id="sceneContainer">
                 <div class="carousel-track" id="carouselTrack"></div>
             </div>
-            
-            <div class="drag-hint">Hover to Pause • Drag to Spin</div>
         </div>
     </div>
 
@@ -359,15 +345,17 @@
                 const isMobile = window.innerWidth < 768;
                 
                 if (isMobile) {
+                    // == MOBILE SETTINGS (UNCHANGED) ==
                     CARD_WIDTH = 200;
                     CARD_HEIGHT = 280;
                     RADIUS = 260; 
                     GAP_ANGLE = 55; 
                 } else {
+                    // == DESKTOP SETTINGS (WIDER ARC to show ~5 items) ==
                     CARD_WIDTH = 280;
                     CARD_HEIGHT = 360;
-                    RADIUS = 550; 
-                    GAP_ANGLE = 40; 
+                    RADIUS = 1000; // Increased radius flattens the curve
+                    GAP_ANGLE = 25; // Decreased angle packs them tighter in the arc
                 }
 
                 cardPool.forEach(card => {
@@ -387,7 +375,6 @@
                     
                     // Marquee Auto-Rotation
                     if (!isHovering && Math.abs(velocity) < 0.1) {
-                        // === CHANGED TO PLUS TO REVERSE DIRECTION ===
                          currentScroll += AUTO_SPEED; 
                     }
 
