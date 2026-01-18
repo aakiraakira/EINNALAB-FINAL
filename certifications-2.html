@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Certifications | Verified Standards</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette */
+            --bg-color: #F5F5F7; 
+            --card-surface: #FFFFFF;
+            --text-main: #1D1D1F;
+            --text-sub: #86868B;
+            --accent-blue: #0071E3;
+            --accent-blue-hover: #0077ED;
+            --btn-black: #1D1D1F;
+            
+            /* UI Constants */
+            --radius-card: 24px;
+            --radius-btn: 99px;
+            --shadow-rest: 0 4px 12px rgba(0,0,0,0.03);
+            --shadow-hover: 0 16px 32px rgba(0,0,0,0.08);
+            
+            /* Physics */
+            --anim-spring: cubic-bezier(0.2, 0.8, 0.2, 1);
+            --anim-entry: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            color: var(--text-main);
+        }
+
+        /* --- SECTION LAYOUT --- */
+        .cert-section {
+            padding: 100px 24px;
+            max-width: 1200px; /* Increased slightly for 4-col breathing room */
+            margin: 0 auto;
+        }
+
+        .cert-header {
+            text-align: center;
+            margin-bottom: 72px;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--anim-entry) forwards;
+        }
+
+        .cert-headline {
+            font-size: 2.75rem;
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .cert-headline span {
+            color: var(--text-sub);
+        }
+
+        .cert-desc {
+            font-size: 1.05rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+
+        /* --- FLEX GRID (Optimized for 4 top / 3 bottom) --- */
+        .cert-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centers the orphaned items in the last row */
+            gap: 24px;
+        }
+
+        /* Card Styles */
+        .cert-card {
+            background: var(--card-surface);
+            border-radius: var(--radius-card);
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-rest);
+            transition: transform 0.4s var(--anim-spring), box-shadow 0.4s var(--anim-spring);
+            border: 1px solid rgba(0,0,0,0.02);
+            
+            /* Sizing Logic for 4 Columns */
+            /* width = (100% - (gap * 3)) / 4 */
+            width: calc(25% - 18px); 
+            min-width: 240px; /* Prevent getting too squished */
+            box-sizing: border-box;
+
+            /* Entry Animation setup */
+            opacity: 0; 
+            transform: translateY(30px);
+        }
+
+        /* Tablet Breakpoint (2 per row) */
+        @media (max-width: 1024px) {
+            .cert-card {
+                width: calc(50% - 12px);
+            }
+        }
+
+        /* Mobile Breakpoint (1 per row) */
+        @media (max-width: 600px) {
+            .cert-card {
+                width: 100%;
+            }
+            .cert-headline { font-size: 2rem; }
+            .cert-section { padding: 60px 20px; }
+        }
+
+        .cert-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: var(--shadow-hover);
+            z-index: 2;
+        }
+
+        /* Icon Area */
+        .cert-icon-box {
+            width: 80px;
+            height: 80px;
+            background: #Fbfbfd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: transform 0.4s var(--anim-spring), background 0.3s;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .cert-card:hover .cert-icon-box {
+            transform: scale(1.1);
+            background: #f0f0f5;
+        }
+
+        .cert-icon-box img {
+            width: 55%;
+            height: auto;
+            mix-blend-mode: multiply;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+            opacity: 0.8;
+        }
+
+        .cert-card:hover .cert-icon-box img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .cert-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0 0 6px 0;
+            letter-spacing: -0.01em;
+        }
+
+        .cert-detail {
+            font-size: 0.9rem;
+            color: var(--text-sub);
+            margin: 0 0 28px 0;
+            flex-grow: 1;
+        }
+
+        .cert-action {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #fff;
+            background: var(--btn-black);
+            padding: 10px 24px;
+            border-radius: var(--radius-btn);
+            transition: all 0.3s var(--anim-spring);
+            opacity: 0.9;
+        }
+
+        .cert-card:hover .cert-action {
+            opacity: 1;
+            transform: scale(1.05);
+            background: black;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* --- MODAL (POPUP) --- */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-backdrop.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-window {
+            background: white;
+            width: 100%;
+            max-width: 850px;
+            border-radius: 28px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.2);
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.5s var(--anim-spring);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            max-height: 85vh;
+        }
+
+        .modal-backdrop.is-open .modal-window {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Close Button */
+        .modal-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 50; /* Above everything */
+        }
+
+        .modal-close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+            background: #f5f5f7;
+        }
+
+        .modal-close-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--text-main);
+        }
+
+        /* Modal Layout */
+        .modal-left {
+            width: 40%;
+            background: #F5F5F7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .modal-left img {
+            width: 80%;
+            max-width: 160px;
+            mix-blend-mode: multiply;
+        }
+
+        .modal-right {
+            width: 60%;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; 
+        }
+
+        .modal-tag {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #00882B;
+            background: rgba(0, 136, 43, 0.12);
+            padding: 6px 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0 0 12px 0;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .modal-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-sub);
+            margin-bottom: 32px;
+        }
+
+        /* Modal Footer */
+        .modal-footer {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .mf-data {
+            display: flex;
+            gap: 24px;
+        }
+
+        .mf-item span { display: block; }
+
+        .mf-label {
+            font-size: 0.7rem;
+            color: #999;
+            font-weight: 600;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .mf-value {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        .download-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: var(--radius-btn);
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+            border: none;
+            white-space: nowrap;
+        }
+
+        .download-btn:hover {
+            background-color: var(--accent-blue-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+        }
+        
+        .download-btn svg {
+            fill: white;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* --- MOBILE OPTIMIZATION SPECIFIC --- */
+        @media (max-width: 900px) {
+            .modal-window {
+                flex-direction: column;
+                max-width: 500px;
+                /* Use dvh for better mobile browser support */
+                height: 85dvh; 
+                max-height: 85dvh;
+                margin: 0;
+            }
+
+            .modal-left { 
+                width: 100%; 
+                height: 140px; 
+                flex-shrink: 0; /* Don't shrink image area */
+                background: #fbfbfd;
+                padding: 10px;
+            }
+            
+            .modal-left img {
+                max-width: 80px; /* Smaller image on mobile */
+            }
+
+            .modal-right { 
+                width: 100%;
+                padding: 24px 24px 0 24px; /* Remove bottom padding for sticky footer */
+                overflow-y: auto; /* Allow text to scroll */
+                -webkit-overflow-scrolling: touch;
+                display: block; /* Simpler flow */
+            }
+
+            .modal-title { font-size: 1.5rem; }
+            .modal-description { font-size: 0.95rem; margin-bottom: 80px; /* Space for footer */ }
+
+            /* Sticky Footer for Mobile */
+            .modal-footer {
+                position: sticky;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgba(255,255,255,0.9);
+                backdrop-filter: blur(8px);
+                padding: 16px 0 20px 0;
+                margin-top: 0;
+                border-top: 1px solid rgba(0,0,0,0.05);
+                flex-direction: row; /* Keep side by side if possible */
+                justify-content: space-between;
+            }
+
+            .mf-data { gap: 16px; }
+            .mf-value { font-size: 0.85rem; }
+            
+            .download-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .modal-close-btn {
+                top: 12px;
+                right: 12px;
+                background: white;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
+        }
+        
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="cert-section">
+        <div class="cert-header">
+            <h2 class="cert-headline">Backed by Science. <br><span>Verified by Standards.</span></h2>
+            <p class="cert-desc">We adhere to the strictest international manufacturing protocols. <br>Click any certification to verify our compliance standards.</p>
+        </div>
+
+        <div class="cert-grid">
+            
+            <div class="cert-card" onclick="openCertModal('fda')">
+                <div class="cert-icon-box">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" alt="FDA Logo">
+                </div>
+                <h3 class="cert-name">FDA Registered</h3>
+                <p class="cert-detail">Facility Registration</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('gmp')">
+                <div class="cert-icon-box">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(140deg);" alt="GMP Logo">
+                </div>
+                <h3 class="cert-name">GMP Certified</h3>
+                <p class="cert-detail">Good Manufacturing</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('haccp')">
+                <div class="cert-icon-box">
+                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(200deg);" alt="HACCP Logo">
+                </div>
+                <h3 class="cert-name">HACCP Compliant</h3>
+                <p class="cert-detail">Hazard Analysis</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('iso')">
+                <div class="cert-icon-box">
+                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: grayscale(100%);" alt="ISO Logo">
+                </div>
+                <h3 class="cert-name">ISO 9001</h3>
+                <p class="cert-detail">Quality Management</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('cert5')">
+                <div class="cert-icon-box">
+                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: sepia(100%);" alt="NSF Logo">
+                </div>
+                <h3 class="cert-name">NSF Certified</h3>
+                <p class="cert-detail">Public Health</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('cert6')">
+                <div class="cert-icon-box">
+                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(45deg);" alt="Organic Logo">
+                </div>
+                <h3 class="cert-name">USDA Organic</h3>
+                <p class="cert-detail">Organic Standard</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('cert7')">
+                <div class="cert-icon-box">
+                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: invert(100%);" alt="Non-GMO Logo">
+                </div>
+                <h3 class="cert-name">Non-GMO</h3>
+                <p class="cert-detail">Verified Project</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="certificationModal" class="modal-backdrop">
+        <div class="modal-window">
+            <button class="modal-close-btn" onclick="closeCertModal()">
+                <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+            
+            <div class="modal-left">
+                <img id="mImage" src="" alt="Certification Logo">
+            </div>
+            
+            <div class="modal-right">
+                <div class="modal-tag">● Active Status</div>
+                <h3 id="mTitle" class="modal-title">Title Here</h3>
+                <p id="mDesc" class="modal-description">Description goes here.</p>
+                
+                <div class="modal-footer">
+                    <div class="mf-data">
+                        <div class="mf-item">
+                            <span class="mf-label">Reg No.</span>
+                            <span class="mf-value">104-992</span>
+                        </div>
+                        <div class="mf-item">
+                            <span class="mf-label">Audit</span>
+                            <span class="mf-value">2027</span>
+                        </div>
+                    </div>
+                    
+                    <button class="download-btn" onclick="downloadAction()">
+                        <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Animation Logic ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.cert-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, 100 + (index * 80)); 
+            });
+        });
+
+        // --- 2. Data Content ---
+        const certificates = {
+            'fda': {
+                title: "FDA Registered Facility",
+                desc: "Our manufacturing facility is fully registered with the U.S. Food and Drug Administration (FDA). We undergo unannounced routine inspections to ensure total compliance with federal safety regulations.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            },
+            'gmp': {
+                title: "GMP Certified",
+                desc: "We adhere strictly to Good Manufacturing Practices (GMP). This system ensures that products are consistently produced and controlled according to quality standards.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" 
+            },
+            'haccp': {
+                title: "HACCP Compliant",
+                desc: "Hazard Analysis Critical Control Points (HACCP) is a systematic preventive approach to food safety. We address physical, chemical, and biological hazards.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            },
+            'iso': {
+                title: "ISO 9001:2015",
+                desc: "Our quality management system is ISO 9001 certified. This demonstrates our ability to consistently provide products and services that meet customer and applicable statutory requirements.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            },
+            // Added Placeholders for 7 items
+            'cert5': {
+                title: "NSF Sport Certified",
+                desc: "Tested for over 270 banned substances. This certification validates that what is on the label is in the bottle and that the product does not contain unsafe levels of contaminants.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            },
+            'cert6': {
+                title: "USDA Organic",
+                desc: "Certified organic by the USDA. This ensures our ingredients are grown without prohibited substances like synthetic pesticides, fertilizers, or GMOs.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            },
+            'cert7': {
+                title: "Non-GMO Project",
+                desc: "Verified by the Non-GMO Project. We believe in transparency and the right of consumers to know what is in their food. We rigorous testing to ensure no GMOs.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            }
+        };
+
+        // --- 3. Modal Logic ---
+        const modalOverlay = document.getElementById('certificationModal');
+        const mTitle = document.getElementById('mTitle');
+        const mDesc = document.getElementById('mDesc');
+        const mImage = document.getElementById('mImage');
+
+        function openCertModal(key) {
+            const data = certificates[key];
+            if (!data) return;
+
+            mTitle.textContent = data.title;
+            mDesc.textContent = data.desc;
+            mImage.src = data.img;
+            
+            // Dynamic Filter Logic for Demo
+            mImage.style.filter = ''; 
+            if(key === 'gmp') mImage.style.filter = 'hue-rotate(140deg)';
+            else if(key === 'haccp') mImage.style.filter = 'hue-rotate(200deg)';
+            else if(key === 'iso') mImage.style.filter = 'grayscale(100%)';
+            else if(key === 'cert5') mImage.style.filter = 'sepia(100%)';
+            else if(key === 'cert6') mImage.style.filter = 'hue-rotate(45deg)';
+            else if(key === 'cert7') mImage.style.filter = 'invert(100%)';
+
+            modalOverlay.classList.add('is-open');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeCertModal() {
+            modalOverlay.classList.remove('is-open');
+            document.body.style.overflow = ''; 
+        }
+
+        function downloadAction() {
+            alert("Download PDF: " + mTitle.textContent);
+        }
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeCertModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('is-open')) closeCertModal();
+        });
+    </script>
+
+</body>
+</html>
