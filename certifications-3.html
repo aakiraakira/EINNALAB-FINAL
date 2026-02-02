@@ -101,7 +101,7 @@
             /* Sizing Logic for 3 Columns (3x3) */
             /* (100% - (2 gaps * 24px)) / 3 = roughly 33.33% - 16px */
             width: calc(33.333% - 16px); 
-            min-width: 280px; /* Slight bump to ensure text fits */
+            min-width: 280px; 
             box-sizing: border-box;
 
             /* Entry Animation setup */
@@ -158,15 +158,14 @@
         .cert-icon-box img {
             width: 55%;
             height: auto;
-            mix-blend-mode: multiply;
-            filter: grayscale(100%);
-            transition: filter 0.3s;
-            opacity: 0.8;
+            mix-blend-mode: multiply; 
+            transition: filter 0.3s, transform 0.3s;
+            opacity: 0.9;
         }
 
         .cert-card:hover .cert-icon-box img {
-            filter: grayscale(0%);
             opacity: 1;
+            transform: scale(1.05);
         }
 
         .cert-name {
@@ -246,7 +245,7 @@
             transform: scale(1) translateY(0);
         }
 
-        /* Close Button */
+        /* Close Button (THICK STYLE) */
         .modal-close-btn {
             position: absolute;
             top: 20px;
@@ -271,12 +270,13 @@
         }
 
         .modal-close-btn svg {
-            width: 16px;       /* Slightly larger to accommodate thickness */
+            width: 16px;
             height: 16px;
-            fill: none;        /* Remove fill */
-            stroke: var(--text-main); /* Add stroke color */
-            stroke-width: 3px; /* <--- THIS CONTROLS THICKNESS */
-            stroke-linecap: round; /* Makes the ends of the lines round/soft */
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 3px;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         /* Modal Layout */
@@ -513,70 +513,70 @@
 
         <div class="cert-grid">
             
+            <div class="cert-card" onclick="openCertModal('hsa')">
+                <div class="cert-icon-box">
+                    <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-hsa-notified-transparent.webp" alt="HSA Logo">
+                </div>
+                <h3 class="cert-name">HSA Notified</h3>
+                <p class="cert-detail">Regulatory Notification</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
             <div class="cert-card" onclick="openCertModal('fda')">
                 <div class="cert-icon-box">
-                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" alt="FDA Logo">
+                    <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-fda-transparent.webp" alt="FDA Logo">
                 </div>
                 <h3 class="cert-name">FDA Registered</h3>
                 <p class="cert-detail">Facility Registration</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('gmp')">
+            <div class="cert-card" onclick="openCertModal('sgs')">
                 <div class="cert-icon-box">
-                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(140deg);" alt="GMP Logo">
+                    <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-sgs-gmp-transparent.webp" alt="SGS Logo">
                 </div>
-                <h3 class="cert-name">GMP Certified</h3>
-                <p class="cert-detail">Good Manufacturing</p>
+                <h3 class="cert-name">SGS Tested</h3>
+                <p class="cert-detail">Third-Party Testing</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('fianz')">
+                <div class="cert-icon-box">
+                     <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-halal-transparent.webp" alt="FIANZ Logo">
+                </div>
+                <h3 class="cert-name">FIANZ Certified</h3>
+                <p class="cert-detail">Halal Certification</p>
+                <div class="cert-action">View Certificate</div>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('rmp')">
+                <div class="cert-icon-box">
+                     <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-rmp-black-transparent.webp" alt="RMP Logo">
+                </div>
+                <h3 class="cert-name">RMP Compliant</h3>
+                <p class="cert-detail">Manufacturing Practice</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
             <div class="cert-card" onclick="openCertModal('haccp')">
                 <div class="cert-icon-box">
-                    <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(200deg);" alt="HACCP Logo">
+                     <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-haccp-black-transparent.webp" alt="HACCP Logo">
                 </div>
                 <h3 class="cert-name">HACCP Compliant</h3>
-                <p class="cert-detail">Hazard Analysis</p>
+                <p class="cert-detail">Food Safety System</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('iso')">
+            <div class="cert-card" onclick="openCertModal('qbe')">
                 <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: grayscale(100%);" alt="ISO Logo">
+                     <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-qbe-icon-transparent.webp" alt="QBE Logo">
                 </div>
-                <h3 class="cert-name">ISO 9001</h3>
-                <p class="cert-detail">Quality Management</p>
+                <h3 class="cert-name">QBE Insurance</h3>
+                <p class="cert-detail">Product Liability Insurance</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('cert5')">
-                <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: sepia(100%);" alt="NSF Logo">
-                </div>
-                <h3 class="cert-name">NSF Certified</h3>
-                <p class="cert-detail">Public Health</p>
-                <div class="cert-action">View Certificate</div>
-            </div>
-
-            <div class="cert-card" onclick="openCertModal('cert6')">
-                <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(45deg);" alt="Organic Logo">
-                </div>
-                <h3 class="cert-name">USDA Organic</h3>
-                <p class="cert-detail">Organic Standard</p>
-                <div class="cert-action">View Certificate</div>
-            </div>
-
-            <div class="cert-card" onclick="openCertModal('cert7')">
-                <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: invert(100%);" alt="Non-GMO Logo">
-                </div>
-                <h3 class="cert-name">Non-GMO</h3>
-                <p class="cert-detail">Verified Project</p>
-                <div class="cert-action">View Certificate</div>
-            </div>
-
-            <div class="cert-card" onclick="openCertModal('cert8')">
+            <div class="cert-card" onclick="openCertModal('gluten')">
                 <div class="cert-icon-box">
                      <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(280deg) brightness(1.2);" alt="Gluten Free Logo">
                 </div>
@@ -585,7 +585,7 @@
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('cert9')">
+            <div class="cert-card" onclick="openCertModal('vegan')">
                 <div class="cert-icon-box">
                      <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(90deg) contrast(1.5);" alt="Vegan Logo">
                 </div>
@@ -644,49 +644,49 @@
             });
         });
 
-        // --- 2. Data Content (Updated to 9) ---
+        // --- 2. Data Content (Updated Logic to Match Images) ---
         const certificates = {
+            'hsa': {
+                title: "HSA Notified",
+                desc: "Our products have been formally notified to the Health Sciences Authority (HSA). This ensures strict compliance with Singapore's health product regulations and safety standards.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-hsa-notified-transparent.webp"
+            },
             'fda': {
                 title: "FDA Registered Facility",
                 desc: "Our manufacturing facility is fully registered with the U.S. Food and Drug Administration (FDA). We undergo unannounced routine inspections to ensure total compliance with federal safety regulations.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-fda-transparent.webp"
             },
-            'gmp': {
-                title: "GMP Certified",
-                desc: "We adhere strictly to Good Manufacturing Practices (GMP). This system ensures that products are consistently produced and controlled according to quality standards.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" 
+            'sgs': {
+                title: "SGS Tested",
+                desc: "Independently tested by SGS, the world's leading inspection, verification, testing and certification company. This validates our product quality and safety claims.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-sgs-gmp-transparent.webp" 
+            },
+            'fianz': {
+                title: "FIANZ Certified",
+                desc: "Halal certified by The Federation of Islamic Associations of New Zealand (FIANZ). Our products contain no forbidden ingredients and are processed using Halal-compliant equipment.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-halal-transparent.webp"
+            },
+            'rmp': {
+                title: "RMP Compliant",
+                desc: "We operate under a registered Risk Management Programme (RMP). This proactive system manages hazards and ensures our products are fit for their intended purpose.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-rmp-black-transparent.webp"
             },
             'haccp': {
                 title: "HACCP Compliant",
                 desc: "Hazard Analysis Critical Control Points (HACCP) is a systematic preventive approach to food safety. We address physical, chemical, and biological hazards.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-haccp-black-transparent.webp"
             },
-            'iso': {
-                title: "ISO 9001:2015",
-                desc: "Our quality management system is ISO 9001 certified. This demonstrates our ability to consistently provide products and services that meet customer and applicable statutory requirements.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            'qbe': {
+                title: "QBE Insurance",
+                desc: "Our products are covered by comprehensive Product Liability Insurance through QBE. This provides an additional layer of assurance regarding our business integrity and consumer protection.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-qbe-icon-transparent.webp"
             },
-            'cert5': {
-                title: "NSF Sport Certified",
-                desc: "Tested for over 270 banned substances. This certification validates that what is on the label is in the bottle and that the product does not contain unsafe levels of contaminants.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
-            },
-            'cert6': {
-                title: "USDA Organic",
-                desc: "Certified organic by the USDA. This ensures our ingredients are grown without prohibited substances like synthetic pesticides, fertilizers, or GMOs.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
-            },
-            'cert7': {
-                title: "Non-GMO Project",
-                desc: "Verified by the Non-GMO Project. We believe in transparency and the right of consumers to know what is in their food. We rigorous testing to ensure no GMOs.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
-            },
-            'cert8': {
+            'gluten': {
                 title: "Gluten-Free Certified",
                 desc: "Independently verified to contain less than 10ppm of gluten. We maintain strict segregation in our facility to prevent cross-contamination for celiac safety.",
                 img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
             },
-            'cert9': {
+            'vegan': {
                 title: "Vegan Certified",
                 desc: "Contains no animal ingredients or by-products. Our manufacturing process excludes animal testing and ensures no cross-contamination with non-vegan substances.",
                 img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
@@ -707,16 +707,11 @@
             mDesc.textContent = data.desc;
             mImage.src = data.img;
             
-            // Dynamic Filter Logic for Demo
+            // Dynamic Filter: apply only to generic icons, remove for custom uploaded logos
             mImage.style.filter = ''; 
-            if(key === 'gmp') mImage.style.filter = 'hue-rotate(140deg)';
-            else if(key === 'haccp') mImage.style.filter = 'hue-rotate(200deg)';
-            else if(key === 'iso') mImage.style.filter = 'grayscale(100%)';
-            else if(key === 'cert5') mImage.style.filter = 'sepia(100%)';
-            else if(key === 'cert6') mImage.style.filter = 'hue-rotate(45deg)';
-            else if(key === 'cert7') mImage.style.filter = 'invert(100%)';
-            else if(key === 'cert8') mImage.style.filter = 'hue-rotate(280deg) brightness(1.2)';
-            else if(key === 'cert9') mImage.style.filter = 'hue-rotate(90deg) contrast(1.5)';
+            if(key === 'gluten') mImage.style.filter = 'hue-rotate(280deg) brightness(1.2)';
+            else if(key === 'vegan') mImage.style.filter = 'hue-rotate(90deg) contrast(1.5)';
+            // Note: Uploaded images (HSA, SGS, etc.) will render with their natural colors.
 
             modalOverlay.classList.add('is-open');
             document.body.style.overflow = 'hidden'; 
