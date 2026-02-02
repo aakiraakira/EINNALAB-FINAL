@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Certifications | Verified Standards</title>
+    <title>Quality Standards & Compliance</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,7 +50,7 @@
         .cert-header {
             text-align: center;
             margin-bottom: 72px;
-            max-width: 640px;
+            max-width: 800px; /* Increased width to allow text to breathe */
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
@@ -63,17 +63,15 @@
             font-weight: 600;
             letter-spacing: -0.04em;
             line-height: 1.1;
-            margin-bottom: 16px;
-        }
-
-        .cert-headline span {
-            color: var(--text-sub);
+            margin-bottom: 20px;
+            color: var(--text-main);
         }
 
         .cert-desc {
-            font-size: 1.05rem;
+            /* INCREASED FONT SIZE */
+            font-size: 1.25rem; 
             color: var(--text-sub);
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         /* --- FLEX GRID (3x3 Setup) --- */
@@ -99,7 +97,6 @@
             border: 1px solid rgba(0,0,0,0.02);
             
             /* Sizing Logic for 3 Columns (3x3) */
-            /* (100% - (2 gaps * 24px)) / 3 = roughly 33.33% - 16px */
             width: calc(33.333% - 16px); 
             min-width: 280px; 
             box-sizing: border-box;
@@ -122,6 +119,7 @@
                 width: 100%;
             }
             .cert-headline { font-size: 2rem; }
+            .cert-desc { font-size: 1.1rem; }
             .cert-section { padding: 60px 20px; }
         }
 
@@ -156,7 +154,8 @@
         }
 
         .cert-icon-box img {
-            width: 55%;
+            /* INCREASED SIZE FROM 55% to 75% */
+            width: 75%; 
             height: auto;
             mix-blend-mode: multiply; 
             transition: filter 0.3s, transform 0.3s;
@@ -507,8 +506,8 @@
 
     <section class="cert-section">
         <div class="cert-header">
-            <h2 class="cert-headline">Backed by Science. <br><span>Verified by Standards.</span></h2>
-            <p class="cert-desc">We adhere to the strictest international manufacturing protocols. <br>Click any certification to verify our compliance standards.</p>
+            <h2 class="cert-headline">Quality Standards & Compliance</h2>
+            <p class="cert-desc">Aligned with regulatory, quality, and manufacturing <br>requirements across key markets.</p>
         </div>
 
         <div class="cert-grid">
@@ -576,21 +575,21 @@
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('gluten')">
+            <div class="cert-card" onclick="openCertModal('gmp_cert')">
                 <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(280deg) brightness(1.2);" alt="Gluten Free Logo">
+                     <img src="https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-sgs-gmp-transparent.webp" alt="GMP Logo">
                 </div>
-                <h3 class="cert-name">Gluten-Free</h3>
-                <p class="cert-detail">GFCO Certified</p>
+                <h3 class="cert-name">GMP Certified</h3>
+                <p class="cert-detail">SGS GMP Certification</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
-            <div class="cert-card" onclick="openCertModal('vegan')">
+            <div class="cert-card" onclick="openCertModal('duns')">
                 <div class="cert-icon-box">
-                     <img src="https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png" style="filter: hue-rotate(90deg) contrast(1.5);" alt="Vegan Logo">
+                     <img src="https://cdn.freebiesupply.com/logos/large/2x/dun-bradstreet-logo-png-transparent.png" alt="D-U-N-S Logo">
                 </div>
-                <h3 class="cert-name">Vegan Certified</h3>
-                <p class="cert-detail">100% Plant Based</p>
+                <h3 class="cert-name">D-U-N-S® Registered</h3>
+                <p class="cert-detail">Dun & Bradstreet Verification</p>
                 <div class="cert-action">View Certificate</div>
             </div>
 
@@ -681,15 +680,15 @@
                 desc: "Our products are covered by comprehensive Product Liability Insurance through QBE. This provides an additional layer of assurance regarding our business integrity and consumer protection.",
                 img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-qbe-icon-transparent.webp"
             },
-            'gluten': {
-                title: "Gluten-Free Certified",
-                desc: "Independently verified to contain less than 10ppm of gluten. We maintain strict segregation in our facility to prevent cross-contamination for celiac safety.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            'gmp_cert': {
+                title: "GMP Certified",
+                desc: "We adhere strictly to Good Manufacturing Practices (GMP) as audited by SGS. This certification ensures products are consistently produced and controlled according to quality standards.",
+                img: "https://woonm3.sg-host.com/wp-content/uploads/2026/02/einnalab-icon-image-sgs-gmp-transparent.webp"
             },
-            'vegan': {
-                title: "Vegan Certified",
-                desc: "Contains no animal ingredients or by-products. Our manufacturing process excludes animal testing and ensures no cross-contamination with non-vegan substances.",
-                img: "https://cdn.freebiesupply.com/logos/large/2x/fda-logo-png-transparent.png"
+            'duns': {
+                title: "D-U-N-S® Registered",
+                desc: "We are verified by Dun & Bradstreet (D-U-N-S® Number). This unique nine-digit identifier confirms our business identity and financial credibility in the global marketplace.",
+                img: "https://cdn.freebiesupply.com/logos/large/2x/dun-bradstreet-logo-png-transparent.png"
             }
         };
 
@@ -709,9 +708,7 @@
             
             // Dynamic Filter: apply only to generic icons, remove for custom uploaded logos
             mImage.style.filter = ''; 
-            if(key === 'gluten') mImage.style.filter = 'hue-rotate(280deg) brightness(1.2)';
-            else if(key === 'vegan') mImage.style.filter = 'hue-rotate(90deg) contrast(1.5)';
-            // Note: Uploaded images (HSA, SGS, etc.) will render with their natural colors.
+            // Uploaded images (HSA, SGS, etc.) will render with their natural colors.
 
             modalOverlay.classList.add('is-open');
             document.body.style.overflow = 'hidden'; 
