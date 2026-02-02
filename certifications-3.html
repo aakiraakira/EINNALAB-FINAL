@@ -50,7 +50,7 @@
         .cert-header {
             text-align: center;
             margin-bottom: 72px;
-            max-width: 800px; /* Increased width to allow text to breathe */
+            max-width: 800px; 
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
@@ -58,20 +58,27 @@
             animation: fadeUp 0.8s var(--anim-entry) forwards;
         }
 
+        /* --- TYPOGRAPHY MATCHING UPLOADED FILE --- */
         .cert-headline {
-            font-size: 2.75rem;
+            font-family: 'Inter', sans-serif;
             font-weight: 600;
-            letter-spacing: -0.04em;
-            line-height: 1.1;
+            font-size: 42px; /* Matched from uploaded file */
+            color: #000000;  /* Matched brand black */
+            text-align: center;
             margin-bottom: 20px;
-            color: var(--text-main);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
         .cert-desc {
-            /* INCREASED FONT SIZE */
-            font-size: 1.25rem; 
-            color: var(--text-sub);
-            line-height: 1.5;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 18px; /* Matched from uploaded file */
+            color: #6b7280;  /* Matched muted text color */
+            text-align: center;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 800px;
         }
 
         /* --- FLEX GRID (3x3 Setup) --- */
@@ -114,12 +121,13 @@
         }
 
         /* Mobile Breakpoint (1 column) */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .cert-card {
                 width: 100%;
             }
-            .cert-headline { font-size: 2rem; }
-            .cert-desc { font-size: 1.1rem; }
+            /* Mobile Typography Match */
+            .cert-headline { font-size: 28px; }
+            .cert-desc { font-size: 15px; padding: 0 10px; }
             .cert-section { padding: 60px 20px; }
         }
 
@@ -154,7 +162,6 @@
         }
 
         .cert-icon-box img {
-            /* INCREASED SIZE FROM 55% to 75% */
             width: 75%; 
             height: auto;
             mix-blend-mode: multiply; 
@@ -643,7 +650,7 @@
             });
         });
 
-        // --- 2. Data Content (Updated Logic to Match Images) ---
+        // --- 2. Data Content ---
         const certificates = {
             'hsa': {
                 title: "HSA Notified",
@@ -708,8 +715,7 @@
             
             // Dynamic Filter: apply only to generic icons, remove for custom uploaded logos
             mImage.style.filter = ''; 
-            // Uploaded images (HSA, SGS, etc.) will render with their natural colors.
-
+            
             modalOverlay.classList.add('is-open');
             document.body.style.overflow = 'hidden'; 
         }
