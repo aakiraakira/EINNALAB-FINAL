@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About EINNALAB - Desktop Variant</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Brand Palette */
+            --bg-color: #fafafa;
+            --sidebar-bg: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #6e6e73;
+            --accent-color: #000000;
+            
+            /* Dimensions */
+            --sidebar-width: 40%;
+            
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: var(--font-main);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- LAYOUT GRID --- */
+        .desktop-wrapper {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* --- LEFT SIDEBAR (STICKY) --- */
+        .sticky-dashboard {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px;
+            z-index: 10;
+        }
+
+        .brand-header {
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.2s;
+        }
+
+        .brand-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* The Big Counter Number */
+        .counter-container {
+            position: relative;
+            height: 200px; /* Space for the big number */
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .big-number {
+            font-size: 12rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            line-height: 1;
+            letter-spacing: -0.05em;
+            position: absolute;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+        }
+
+        .big-number.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .big-number.is-leaving {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            width: 100%;
+            height: 2px;
+            background-color: #eee;
+            position: relative;
+            overflow: hidden;
+            margin-top: auto; /* Push to bottom if needed */
+        }
+
+        .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease-out;
+        }
+
+        .total-count {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* --- RIGHT CONTENT (SCROLL) --- */
+        .content-stream {
+            width: calc(100% - var(--sidebar-width));
+            padding: 10vh 8%;
+        }
+
+        .scroll-section {
+            min-height: 80vh; /* Gives each section room to breathe */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-bottom: 10vh;
+            
+            /* Inactive State by default */
+            opacity: 0.1;
+            filter: blur(4px);
+            transform: scale(0.95);
+            transition: opacity 0.6s ease, filter 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .scroll-section.is-active {
+            opacity: 1;
+            filter: blur(0);
+            transform: scale(1);
+        }
+
+        .section-headline {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.1;
+            margin: 0 0 40px 0;
+            letter-spacing: -0.03em;
+            max-width: 800px;
+        }
+
+        .section-body {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-weight: 400;
+            max-width: 650px;
+        }
+
+        .section-body p {
+            margin-bottom: 28px;
+        }
+
+        .section-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Bullet List */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0 0 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .styled-list li {
+            padding-left: 20px;
+            border-left: 2px solid var(--accent-color);
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- MOBILE RESPONSIVENESS --- */
+        /* Since this is a "Desktop Variant", we provide a fallback for mobile 
+           so it doesn't break, but the innovation is focused on desktop. */
+        @media (max-width: 1024px) {
+            .desktop-wrapper {
+                flex-direction: column;
+            }
+            .sticky-dashboard {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 40px 20px;
+                border-bottom: 1px solid #eee;
+                border-right: none;
+            }
+            .counter-container {
+                display: none; /* Hide giant number on mobile to save space */
+            }
+            .content-stream {
+                width: 100%;
+                padding: 40px 20px;
+            }
+            .scroll-section {
+                min-height: auto;
+                margin-bottom: 80px;
+                opacity: 0.4; /* More visible on mobile inactive */
+                filter: blur(0);
+                transform: none;
+            }
+            .scroll-section.is-active {
+                opacity: 1;
+            }
+            .section-headline {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="desktop-wrapper">
+        
+        <aside class="sticky-dashboard">
+            <div class="brand-header">
+                <span class="brand-label">About</span>
+                <h1 class="brand-title">EINNALAB</h1>
+            </div>
+
+            <div class="counter-container" id="counterContainer">
+                <div class="big-number is-visible" data-index="1">01</div>
+                </div>
+
+            <div class="footer-status">
+                <div class="progress-wrapper">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="total-count">
+                    Reading Section <span id="currentIndex">1</span> of 8
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-stream">
+
+            <section class="scroll-section" data-index="1">
+                <h2 class="section-headline">A Commitment to Transparency, Quality, and Responsible Supplement Design</h2>
+                <div class="section-body">
+                    <p>EINNALAB is a Singapore-registered nutraceutical company focused on developing dietary supplements with an emphasis on quality systems, ingredient integrity, and transparent compliance practices.</p>
+                    <p>In an industry often driven by bold claims and opaque sourcing, EINNALAB was established with a different philosophy: to prioritize verifiable standards, responsible formulation, and clear disclosure over marketing hype.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="2">
+                <h2 class="section-headline">How EINNALAB Products Are Made</h2>
+                <div class="section-body">
+                    <p>EINNALAB products are manufactured in facilities that operate under recognized quality and food safety management systems, including Good Manufacturing Practice (GMP) and HACCP-based controls, as required for dietary supplement production.</p>
+                    <p>To support quality assurance, selected batches undergo independent third-party laboratory testing for parameters such as identity, purity, and safety. Testing scope and frequency may vary by batch and market, in accordance with applicable regulatory requirements.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="3">
+                <h2 class="section-headline">Regulatory Awareness and Compliance</h2>
+                <div class="section-body">
+                    <p>EINNALAB operates with a strong awareness of regulatory frameworks across different markets.</p>
+                    <p>Where applicable, facility registrations, product notifications, and compliance documentation are maintained in accordance with the requirements of relevant authorities. These registrations are disclosed transparently to help consumers understand the regulatory context in which EINNALAB products are produced and distributed.</p>
+                    <p>Importantly, regulatory registrations and certifications relate to manufacturing facilities, quality systems, or administrative compliance, and do not imply approval, evaluation, or endorsement of any product by regulatory authorities.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="4">
+                <h2 class="section-headline">Responsible Ingredient Philosophy</h2>
+                <div class="section-body">
+                    <p>EINNALAB formulations are designed with a nutritional and systems-based approach, emphasizing ingredient compatibility, balanced inclusion levels, and responsible sourcing.</p>
+                    <p>Rather than relying on isolated high-dose ingredients or exaggerated functional promises, EINNALAB focuses on coordinated multi-nutrient formulations intended to support general wellness and normal body function, in line with dietary supplement regulatory frameworks.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="5">
+                <h2 class="section-headline">Independent Verification and Business Integrity</h2>
+                <div class="section-body">
+                    <p>To reinforce accountability, EINNALAB works with internationally recognized third-party organizations for areas such as laboratory testing, quality audits, and business verification, where applicable.</p>
+                    <p>In addition, EINNALAB maintains product liability insurance coverage as part of its risk-management and governance practices, reflecting a long-term commitment to responsible business operations.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="6">
+                <h2 class="section-headline">Transparency as a Long-Term Standard</h2>
+                <div class="section-body">
+                    <p>EINNALAB believes that trust is built through clarity, consistency, and openness.</p>
+                    <p>For this reason, certification details, regulatory explanations, and verification information are made accessible so that consumers can better understand how products are made, tested, and managed, rather than being asked to rely solely on branding or claims.</p>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="7">
+                <h2 class="section-headline">Our Position in the Market</h2>
+                <div class="section-body">
+                    <p>EINNALAB does not position itself through exclusivity programs, closed distribution structures, or exaggerated performance claims.</p>
+                    <p>Instead, the brand is intended for consumers who value:</p>
+                    <ul class="styled-list">
+                        <li>Documented quality systems</li>
+                        <li>Independent testing practices</li>
+                        <li>Transparent compliance disclosures</li>
+                        <li>Responsible supplement formulation</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="scroll-section" data-index="8">
+                <h2 class="section-headline">A Measured Approach to Wellness</h2>
+                <div class="section-body">
+                    <p>Dietary supplements are not medicines, and EINNALAB products are not intended to diagnose, treat, cure, or prevent any disease. They are developed as part of a balanced lifestyle that may include proper nutrition, regular activity, and appropriate medical guidance.</p>
+                    <p>EINNALAB’s role is to provide supplements that are thoughtfully formulated, responsibly produced, and clearly presented, allowing consumers to make informed decisions with confidence.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll('.scroll-section');
+            const counterContainer = document.getElementById('counterContainer');
+            const currentIndexDisplay = document.getElementById('currentIndex');
+            const progressBar = document.getElementById('progressBar');
+            
+            let currentActiveIndex = 1;
+            const totalSections = sections.length;
+
+            // Initialize Progress Bar
+            updateProgress(1);
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px', // Trigger exactly when section hits middle of screen
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Activate the section visual style
+                        entry.target.classList.add('is-active');
+                        
+                        // Get the index
+                        const newIndex = parseInt(entry.target.getAttribute('data-index'));
+                        
+                        // If index changed, update the sidebar
+                        if (newIndex !== currentActiveIndex) {
+                            updateSidebar(newIndex);
+                            currentActiveIndex = newIndex;
+                        }
+                    } else {
+                        entry.target.classList.remove('is-active');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            function updateSidebar(index) {
+                // 1. Update text counter below
+                currentIndexDisplay.textContent = index;
+
+                // 2. Update Progress Bar
+                updateProgress(index);
+
+                // 3. Animate the Big Number
+                // We create a new number element, slide it in, and slide the old one out.
+                const oldNumber = counterContainer.querySelector('.big-number.is-visible');
+                const formattedIndex = index < 10 ? `0${index}` : index;
+
+                // Create new number
+                const newNumber = document.createElement('div');
+                newNumber.classList.add('big-number');
+                newNumber.textContent = formattedIndex;
+                
+                // Determine direction (scrolling down or up?)
+                // Simple logic: if new index > old index, slide up from bottom. 
+                // Since this logic can be complex with IntersectionObservers jumping,
+                // we'll stick to a standard "slide up" effect for consistency.
+                
+                counterContainer.appendChild(newNumber);
+
+                // Force reflow
+                void newNumber.offsetWidth;
+
+                // Animate
+                if (oldNumber) {
+                    oldNumber.classList.remove('is-visible');
+                    oldNumber.classList.add('is-leaving');
+                    
+                    // Remove from DOM after animation
+                    setTimeout(() => {
+                        oldNumber.remove();
+                    }, 600);
+                }
+                
+                newNumber.classList.add('is-visible');
+            }
+
+            function updateProgress(index) {
+                const percentage = (index / totalSections) * 100;
+                progressBar.style.width = `${percentage}%`;
+            }
+        });
+    </script>
+</body>
+</html>
