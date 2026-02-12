@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About EINNALAB | Our Standards</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #f2f2f5;
+            /* Light grey lab feel */
+            --card-bg: #ffffff;
+            --text-main: #111111;
+            --text-muted: #6e6e73;
+            --accent-color: #000000;
+            --font-main: 'Inter', sans-serif;
+            --card-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08);
+            --border-radius: 24px;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            /* Smooth scroll behavior */
+            scroll-behavior: smooth;
+        }
+
+        /* --- HEADER (Fixed) --- */
+        nav.fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+            /* Makes text visible on white or black */
+            color: #fff;
+            box-sizing: border-box;
+            pointer-events: none;
+            /* Let clicks pass through */
+        }
+
+        .brand-name {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .page-indicator {
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        /* --- HERO INTRO --- */
+        header.hero {
+            height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        h1.main-title {
+            font-size: 4rem;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin: 0 0 20px 0;
+            background: linear-gradient(180deg, #000 0%, #444 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.5;
+        }
+
+        .scroll-hint {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            animation: bounce 2s infinite;
+        }
+
+        /* --- MAIN STACK CONTAINER --- */
+        .stack-container {
+            position: relative;
+            /* Each section adds height to the scroll */
+            padding-bottom: 10vh;
+        }
+
+        /* --- THE CARD --- */
+        .card-wrapper {
+            /* This is the magic. Sticky allows them to stack. */
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            /* For 3D transforms */
+            overflow: hidden;
+        }
+
+        .card-inner {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 900px;
+            height: 60vh;
+            /* Fixed height for the card content */
+            padding: 60px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            /* Number left, Content right */
+            gap: 40px;
+
+            /* Initial state for animation logic */
+            transform-origin: center top;
+            transition: transform 0.1s linear, filter 0.1s linear;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        /* Typography inside Card */
+        .card-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            font-family: monospace;
+            writing-mode: vertical-rl;
+            /* Vertical text for style */
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            /* Flip it to read bottom-up */
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .card-headline {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin: 0 0 30px 0;
+        }
+
+        .card-body {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+            max-width: 600px;
+        }
+
+        .card-body p {
+            margin-bottom: 20px;
+        }
+
+        .card-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Card Images */
+        .card-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        .card-image-small {
+            max-width: 250px;
+            float: right;
+            margin: 0 0 20px 20px;
+        }
+
+        /* Styled List */
+        .lab-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0 0 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .lab-list li {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+
+        .lab-list li::before {
+            content: "→";
+            margin-right: 10px;
+            color: var(--text-muted);
+            font-size: 1.2em;
+        }
+
+        /* --- PROGRESS BAR --- */
+        .progress-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            /* Smaller: 3px -> 2px */
+            background: rgba(224, 224, 224, 0.3);
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #111 0%, #444 100%);
+            width: 0%;
+            transition: width 0.1s linear;
+            /* Smoother transition */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- CONTENT SPLIT (Text + Image) --- */
+        .content-split {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        .content-text {
+            flex: 1;
+        }
+
+        .content-media {
+            flex: 0 0 300px;
+            /* Fixed width for image container */
+        }
+
+        .content-media img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* --- MOBILE OPTIMIZATION (Card stacking with vertical scroll) --- */
+        @media (max-width: 900px) {
+            .card-wrapper {
+                /* Enable sticky on mobile for stacking effect */
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                padding: 0;
+                /* Reset padding to allow full height usage if needed */
+            }
+
+            .card-inner {
+                width: 90%;
+                /* Slight margin */
+                height: auto;
+                max-height: 80vh;
+                /* Limit height to avoid clipping on small screens */
+                overflow-y: auto;
+                /* Scroll content if it overflows */
+                grid-template-columns: 1fr;
+                /* Stack number and content */
+                gap: 20px;
+                padding: 30px;
+                /* Keep standard padding */
+                margin: 10vh auto;
+                /* Center vertically in the 100vh wrapper */
+            }
+
+            .card-number {
+                writing-mode: horizontal-tb;
+                transform: none;
+                font-size: 1.5rem;
+                height: auto;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+            }
+
+            .card-headline {
+                font-size: 1.8rem;
+            }
+
+            h1.main-title {
+                font-size: 2.5rem;
+            }
+
+            nav.fixed-header {
+                mix-blend-mode: normal;
+                background: rgba(255, 255, 255, 0.9);
+                backdrop-filter: blur(10px);
+                color: #000;
+                padding: 15px 20px;
+            }
+
+            /* Stack content split on mobile */
+            .content-split {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .content-media {
+                flex: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="fixed-header">
+        <div class="brand-name">EINNALAB</div>
+        <div class="page-indicator"><span id="current-idx">00</span> / 08</div>
+    </nav>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <header class="hero">
+        <h1 class="main-title">Principles of <br>Precision</h1>
+        <p class="hero-subtitle">A deep dive into the standards, philosophy, and transparency protocols that define
+            EINNALAB.</p>
+        <div class="scroll-hint">Scroll to Explore</div>
+    </header>
+
+    <main class="stack-container">
+
+        <div class="card-wrapper" data-index="1">
+            <div class="card-inner" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://woonm3.sg-host.com/wp-content/uploads/2026/02/Image-Cells-Blue-scaled.jpg') no-repeat center center / cover;">
+                <div class="card-number">01</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Transparency & Quality</h2>
+                    <div class="card-body">
+                        <p>EINNALAB is a Singapore-registered nutraceutical company focused on developing dietary
+                            supplements with an emphasis on quality systems, ingredient integrity, and transparent
+                            compliance practices.</p>
+                        <p>We prioritize verifiable standards, responsible formulation, and clear disclosure over
+                            marketing hype.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="2">
+            <div class="card-inner" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://woonm3.sg-host.com/wp-content/uploads/2026/02/Image-Cells-Green-scaled.jpg') no-repeat center center / cover;">
+                <div class="card-number">02</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Manufacturing Standards</h2>
+                    <div class="card-body">
+                        <p>Our products are manufactured in facilities operating under recognized quality and food
+                            safety management systems, including Good Manufacturing Practice (GMP) and HACCP-based
+                            controls.</p>
+                        <p>To support quality assurance, selected batches undergo independent third-party laboratory
+                            testing for identity, purity, and safety.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="3">
+            <div class="card-inner" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://woonm3.sg-host.com/wp-content/uploads/2026/02/Image-Cells-Pink-scaled.jpg') no-repeat center center / cover;">
+                <div class="card-number">03</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Regulatory Awareness</h2>
+                    <div class="card-body">
+                        <p>EINNALAB operates with a strong awareness of regulatory frameworks. Facility registrations
+                            and compliance documentation are maintained according to relevant authorities.</p>
+                        <p>Note: Registrations relate to facilities and systems, and do not imply government endorsement
+                            of specific products.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="4">
+            <div class="card-inner">
+                <div class="card-number">04</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Ingredient Philosophy</h2>
+                    <div class="card-body">
+                        <p>Our formulations use a systems-based approach, emphasizing ingredient compatibility and
+                            responsible sourcing.</p>
+                        <p>We focus on coordinated multi-nutrient formulations intended to support general wellness,
+                            rather than isolated high-dose ingredients with exaggerated functional promises.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="5">
+            <div class="card-inner">
+                <div class="card-number">05</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Independent Verification</h2>
+                    <div class="card-body">
+                        <p>To reinforce accountability, we work with internationally recognized third-party
+                            organizations for laboratory testing and quality audits.</p>
+                        <p>We also maintain product liability insurance as part of our long-term commitment to
+                            responsible business operations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="6">
+            <div class="card-inner">
+                <div class="card-number">06</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Transparency Standard</h2>
+                    <div class="card-body">
+                        <p>Trust is built through clarity. Certification details and regulatory explanations are made
+                            accessible.</p>
+                        <p>Consumers deserve to understand how products are made, tested, and managed, rather than
+                            relying solely on branding or claims.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="7">
+            <div class="card-inner">
+                <div class="card-number">07</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Our Market Position</h2>
+                    <div class="card-body">
+                        <p>EINNALAB is intended for consumers who value substance over exclusivity.</p>
+                        <ul class="lab-list">
+                            <li>Documented quality systems</li>
+                            <li>Independent testing practices</li>
+                            <li>Transparent compliance disclosures</li>
+                            <li>Responsible formulation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper" data-index="8">
+            <div class="card-inner">
+                <div class="card-number">08</div>
+                <div class="card-content">
+                    <h2 class="card-headline">Measured Wellness</h2>
+                    <div class="card-body">
+                        <p>Dietary supplements are not medicines. They are part of a balanced lifestyle.</p>
+                        <p>EINNALAB’s role is to provide supplements that are thoughtfully formulated and clearly
+                            presented, allowing you to make informed decisions with confidence.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll('.card-wrapper');
+            const progressIndicator = document.getElementById('current-idx');
+            const progressBar = document.getElementById('progress-bar');
+            let isTicking = false;
+
+            function updateProgressAndStack() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+
+                // Calculate progress bar
+                const totalHeight = document.body.scrollHeight - windowHeight;
+                const progress = (scrollY / totalHeight) * 100;
+                progressBar.style.width = `${progress}%`;
+
+                // Update cards logic
+                cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    const cardInner = card.querySelector('.card-inner');
+
+                    const nextCard = cards[index + 1];
+
+                    if (nextCard) {
+                        const nextRect = nextCard.getBoundingClientRect();
+                        // Distance of next card from bottom of screen
+                        const distance = nextRect.top;
+
+                        // If nextCard is rising up (entering view)
+                        // logic needs to be robust for mobile too where scale effect might be subtle
+                        if (distance < windowHeight && distance > 0) {
+                            // Map distance to a scale value (1 -> 0.9)
+                            // As distance gets smaller (card moves up), scale gets smaller
+                            const scale = 0.9 + (0.1 * (distance / windowHeight));
+                            const brightness = 0.5 + (0.5 * (distance / windowHeight)); // Darken
+
+                            cardInner.style.transform = `scale(${scale})`;
+                            cardInner.style.filter = `brightness(${brightness})`;
+                        } else if (distance <= 0) {
+                            // Fully covered
+                            cardInner.style.transform = `scale(0.9)`;
+                            cardInner.style.filter = `brightness(0.5)`;
+                        } else {
+                            // Normal state
+                            cardInner.style.transform = `scale(1)`;
+                            cardInner.style.filter = `brightness(1)`;
+                        }
+                    }
+                });
+
+                isTicking = false;
+            }
+
+            function onScroll() {
+                if (!isTicking) {
+                    window.requestAnimationFrame(updateProgressAndStack);
+                    isTicking = true;
+                }
+            }
+
+            // Intersection Observer for updating the Page Number (01/08)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const idx = entry.target.getAttribute('data-index');
+                        progressIndicator.innerText = idx.toString().padStart(2, '0');
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            cards.forEach(card => observer.observe(card));
+
+            // Run visuals on scroll
+            window.addEventListener('scroll', onScroll, { passive: true });
+            // Run once on load
+            updateStack = updateProgressAndStack; // preserve reference if needed for other scripts
+            updateProgressAndStack();
+        });
+    </script>
+</body>
+
+</html>
